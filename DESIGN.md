@@ -2,6 +2,12 @@
 
 ## Cloudflare release · footer and privacy controls
 
+Footer typography correction: contact, copyright and navigation explicitly use
+14px instead of inheriting the 18px page body. Mission is 24px mobile / 28px
+desktop. Wordmark is 220px below 768px and 320px above; natural aspect ratio.
+These component tokens live in `.sv-brand-footer`. Footer content remains
+unchanged; analytics and export branding behavior are outside this correction.
+
 Footer reuses VELNOC's mint #def2f7 field, original navy wordmark (320px maximum),
 24px two-line mission, email and English descriptor. 80px top/divider spacing,
 40px grid gap; desktop 5:4:3 columns, stacked below 980px. Bottom links wrap

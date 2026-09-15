@@ -1,5 +1,16 @@
 # SevenView Community · VELNOC design contract
 
+## Sharing assets · 2026-09-15
+
+Social card: 1200×630, original VELNOC navy wordmark, existing actual workspace
+capture, paper/mint/deep/ink/muted palette below. Two equal columns; 48px outer
+spacing, 64px product name, 36px headline, 20px detail, 14px provenance caption.
+The right screenshot is intentionally cropped as a product detail, not a live
+interface. Render scripts/share-card.html to PNG; never generate new people.
+Favicons reuse the original VELNOC 32px and 180px marks unchanged.
+The user now authorizes coordination with the separate VELNOC homepage task;
+that task owns its main-site edits. Community does not modify the existing beta.
+
 ## 2026-09-15 · Landing redesign (supersedes landing rules below)
 
 The landing is a VELNOC product site. Port the approved VELNOC website's

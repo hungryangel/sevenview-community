@@ -48,3 +48,10 @@ Upstream: https://github.com/orioncactus/pretendard/tree/v1.3.9
 The binary publication guard explicitly lists these assets. New images require
 provenance review and an intentional allowlist update; it does not accept an
 arbitrary image directory.
+# Sharing assets
+
+`public/brand/velnoc-favicon-32.png` and `velnoc-favicon-180.png` reuse the
+existing VELNOC identity. `sevenview-social.png` is a 1200×630 composition of
+the existing Community workspace screenshot and brand typography, not a newly
+generated person. With the dev server on port 4390, run
+`node scripts/render-share-card.mjs` to reproduce it (Chrome required).

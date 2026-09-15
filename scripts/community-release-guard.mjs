@@ -5,6 +5,9 @@ const EXCLUDED_ROOTS = new Set([".git", "node_modules", "playwright-report", "te
 const APPROVED_BINARY = new Set([
   ...["public", "dist"].flatMap((root) => [
     `${root}/brand/velnoc-wordmark.png`,
+    `${root}/brand/velnoc-favicon-32.png`,
+    `${root}/brand/velnoc-favicon-180.png`,
+    `${root}/brand/sevenview-social.png`,
     `${root}/fonts/PretendardVariable.woff2`,
     ...[
       "01-front",

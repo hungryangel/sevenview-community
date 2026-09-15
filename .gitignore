@@ -9,3 +9,4 @@ test-results/
 .env
 .react-doctor-report.json
 .omo/
+.vercel/

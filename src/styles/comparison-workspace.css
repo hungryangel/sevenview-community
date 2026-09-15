@@ -1,0 +1,465 @@
+.comparison-viewer__side-labels {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-3);
+  color: var(--text-secondary);
+}
+
+.comparison-viewer__toolbar {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: var(--space-2);
+}
+
+.comparison-angle {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.comparison-angle p {
+  margin: 0;
+}
+
+.comparison-angle__hint {
+  color: var(--text-secondary);
+}
+
+.comparison-angle summary {
+  cursor: pointer;
+  padding-block: var(--space-3);
+}
+
+.comparison-export-dialog .export-dialog__session {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.comparison-viewer__stage {
+  aspect-ratio: 8 / 5;
+  background: var(--surface-image);
+  border-radius: var(--radius-card);
+  box-sizing: border-box;
+  display: grid;
+  grid-template-rows: minmax(0, 1fr);
+  inline-size: min(100%, 960px, calc(42dvb * 8 / 5));
+  margin-inline: auto;
+  min-block-size: 0;
+  overflow: hidden;
+  padding: var(--space-4);
+  place-items: center;
+}
+
+.comparison-viewer__stage > * {
+  block-size: 100%;
+  inline-size: 100%;
+  margin: 0;
+}
+
+.comparison-viewer__stage .comparison-viewer__side-by-side {
+  align-items: center;
+  display: grid;
+  gap: var(--space-4);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.comparison-workspace:has(.comparison-viewer) {
+  padding-block: var(--space-6);
+}
+
+.comparison-workspace:has(.comparison-viewer) > .comparison-workspace__heading {
+  margin-block-end: var(--space-5);
+}
+
+.comparison-workspace:has(.comparison-viewer) .comparison-viewer {
+  gap: var(--space-4);
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.comparison-viewer__stage figure,
+.comparison-viewer__stage .comparison-viewer__wipe,
+.comparison-viewer__stage .comparison-viewer__toggle-frame {
+  min-block-size: 0;
+  min-inline-size: 0;
+}
+
+.comparison-viewer__stage .comparison-viewer__side-by-side figure {
+  block-size: 100%;
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+}
+
+.comparison-viewer__stage .comparison-viewer__wipe-section {
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+}
+
+.comparison-viewer__stage .comparison-viewer__toggle {
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto auto;
+}
+
+.comparison-viewer__stage .comparison-viewer__wipe,
+.comparison-viewer__stage .comparison-viewer__toggle-frame {
+  block-size: 100%;
+  inline-size: auto;
+  justify-self: center;
+}
+
+.comparison-viewer__stage .comparison-preview-frame {
+  background: var(--surface-image);
+  block-size: 100%;
+  aspect-ratio: 4 / 5;
+  border-radius: var(--radius-card);
+  inline-size: auto;
+  justify-self: center;
+  min-block-size: 0;
+  max-inline-size: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.comparison-viewer__stage .comparison-preview {
+  block-size: 100%;
+  display: block;
+  inline-size: 100%;
+  object-fit: contain;
+}
+
+.comparison-viewer__stage .comparison-viewer__wipe .comparison-preview-frame,
+.comparison-viewer__stage .comparison-viewer__toggle-frame .comparison-preview-frame {
+  inline-size: 100%;
+}
+
+.comparison-viewer__stage .comparison-viewer__toggle-frame .comparison-preview-frame {
+  position: absolute;
+}
+
+.comparison-photo-overlay {
+  block-size: 100%;
+  color: var(--guide-color);
+  inline-size: 100%;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  position: absolute;
+}
+
+.comparison-photo-overlay polygon {
+  fill: color-mix(in srgb, var(--guide-color) 12%, transparent);
+  stroke: currentColor;
+  stroke-width: var(--guide-width);
+  vector-effect: non-scaling-stroke;
+}
+
+.comparison-photo-overlay circle {
+  fill: var(--guide-color);
+  stroke: var(--guide-color);
+  stroke-width: var(--guide-width);
+  vector-effect: non-scaling-stroke;
+}
+
+.comparison-photo-overlay text {
+  dominant-baseline: central;
+  fill: var(--accent-ink);
+  font-weight: 700;
+  text-anchor: middle;
+}
+
+.comparison-viewer__information {
+  inline-size: fit-content;
+  max-inline-size: 100%;
+}
+
+.comparison-viewer__information > summary {
+  cursor: pointer;
+  font-weight: 650;
+  min-block-size: 44px;
+  padding-block: var(--space-2);
+}
+
+.comparison-viewer__information > fieldset {
+  border: 0;
+  flex-wrap: wrap;
+  margin: 0;
+}
+
+.comparison-viewer__information > fieldset .button {
+  flex: 1 0 auto;
+  white-space: nowrap;
+}
+
+.comparison-viewer__information-legend {
+  background: var(--surface-panel);
+  border-radius: var(--radius-control);
+  display: grid;
+  gap: var(--space-1);
+  padding: var(--space-3);
+}
+
+.comparison-viewer__information-legend p {
+  margin: 0;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+
+.comparison-new-pair {
+  display: grid;
+  gap: var(--space-2);
+  justify-items: start;
+}
+
+.comparison-workspace__export:has(.comparison-new-pair) {
+  align-items: flex-start;
+}
+
+.comparison-new-pair__confirmation {
+  background: var(--surface-panel);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-control);
+  display: grid;
+  gap: var(--space-2);
+  max-inline-size: 32rem;
+  padding: var(--space-3);
+}
+
+.comparison-new-pair__confirmation p {
+  margin: 0;
+}
+
+.comparison-new-pair__confirmation > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.comparison-reference-editor {
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-card);
+  padding: var(--space-4);
+}
+
+.comparison-eye-privacy {
+  display: grid;
+  min-inline-size: 0;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-card);
+  background: var(--surface-panel);
+}
+
+.comparison-eye-privacy__heading,
+.comparison-eye-privacy__sides,
+.comparison-eye-privacy__sides > div,
+.comparison-eye-mask-dialog header,
+.comparison-eye-mask-dialog footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.comparison-eye-privacy h3,
+.comparison-eye-privacy p,
+.comparison-eye-mask-dialog h2,
+.comparison-eye-mask-dialog p {
+  margin: 0;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+
+.comparison-eye-privacy__sides > div {
+  flex: 1 1 18rem;
+  min-inline-size: 0;
+  padding: var(--space-3);
+  border: 1px solid var(--border-standard);
+  border-radius: var(--radius-control);
+  background: var(--surface-raised);
+}
+
+.comparison-eye-mask-dialog {
+  inline-size: min(56rem, calc(100% - 2rem));
+  max-block-size: calc(100dvb - 2rem);
+  padding: var(--space-5);
+  border: 1px solid var(--border-standard);
+  border-radius: var(--radius-panel);
+  background: var(--surface-panel);
+  color: var(--text-primary);
+}
+
+.comparison-eye-mask-dialog::backdrop {
+  background: var(--surface-scrim);
+}
+
+.comparison-eye-mask-editor {
+  display: grid;
+  place-items: center;
+  margin-block: var(--space-4);
+  overflow: hidden;
+  max-block-size: 62dvb;
+  border-radius: var(--radius-card);
+  background: var(--surface-image);
+}
+
+.comparison-eye-mask-editor canvas {
+  display: block;
+  max-inline-size: 100%;
+  max-block-size: 62dvb;
+  inline-size: auto;
+  block-size: auto;
+  touch-action: none;
+}
+
+.comparison-eye-mask-editor canvas:focus-visible {
+  outline: 3px solid var(--focus-ring);
+  outline-offset: -3px;
+}
+
+@media (max-width: 40rem) {
+  .comparison-eye-mask-dialog {
+    padding: var(--space-3);
+  }
+  .comparison-eye-mask-editor,
+  .comparison-eye-mask-editor canvas {
+    max-block-size: 52dvb;
+  }
+}
+
+.comparison-reference-editor > summary {
+  cursor: pointer;
+  font-weight: 650;
+  min-block-size: 44px;
+}
+
+.comparison-reference-editor__sources {
+  display: grid;
+  gap: var(--space-4);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.comparison-reference-editor__original {
+  background: #f4f4f2;
+  inline-size: min(100%, 280px);
+  max-inline-size: 280px;
+  position: relative;
+  touch-action: none;
+}
+
+.comparison-reference-editor__original img {
+  block-size: 100%;
+  inline-size: 100%;
+  object-fit: contain;
+}
+
+.comparison-reference-editor__marker {
+  background: var(--accent-primary);
+  border: 2px solid white;
+  border-radius: 50%;
+  block-size: 24px;
+  inline-size: 24px;
+  position: absolute;
+  transform: translate(-50%, -50%);
+}
+
+.comparison-reference-editor__point-input,
+.comparison-reference-editor__residual {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.comparison-reference-editor input {
+  inline-size: 7rem;
+}
+
+.comparison-reference-editor__required {
+  background: var(--surface-panel);
+  border: 1px solid var(--border-standard);
+  border-radius: var(--radius-card);
+  border-inline-start: 3px solid var(--status-warning);
+  min-inline-size: 0;
+  padding: var(--space-4);
+}
+
+.comparison-reference-editor__required p {
+  word-break: keep-all;
+}
+
+.comparison-reference-editor__recovery-image {
+  background-color: #f4f4f2;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  border: 1px solid var(--border-standard);
+  border-radius: var(--radius-control);
+  display: block;
+  inline-size: min(100%, 320px);
+  margin-block: var(--space-3);
+  position: relative;
+  padding: 0;
+  touch-action: none;
+}
+
+
+
+.comparison-reference-editor__coordinates {
+  margin-block: var(--space-3);
+  font-size: var(--font-size-small, 0.875rem);
+}
+
+.comparison-reference-editor__coordinates label {
+  display: inline-flex;
+  gap: var(--space-2);
+  margin: var(--space-2);
+}
+
+.comparison-reference-editor__crosshair {
+  color: var(--guide-color);
+  font-size: 1.5rem;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+}
+
+.comparison-reference-editor__recovery-image:focus-visible .comparison-reference-editor__crosshair {
+  opacity: 1;
+}
+
+.comparison-photo-overlay__mesh circle {
+  fill: var(--guide-color);
+  stroke: var(--guide-color);
+  stroke-width: 0.65px;
+}
+.comparison-photo-overlay__mesh .comparison-photo-overlay__named circle {
+  fill: var(--surface-image);
+  stroke: var(--guide-color);
+  stroke-width: 0.003;
+}
+.comparison-photo-overlay__mesh text {
+  fill: var(--guide-color);
+  stroke: var(--surface-image);
+  stroke-width: 0.001;
+  paint-order: stroke;
+}
+
+@media (max-width: 639px) {
+  .comparison-viewer__stage {
+    min-block-size: 25rem;
+  }
+
+  .comparison-viewer__stage .comparison-viewer__side-by-side figure {
+    align-content: center;
+    grid-template-rows: auto auto;
+  }
+
+  .comparison-viewer__stage .comparison-viewer__side-by-side .comparison-preview-frame {
+    block-size: auto;
+    inline-size: 100%;
+  }
+
+  .comparison-reference-editor__sources {
+    grid-template-columns: 1fr;
+  }
+}

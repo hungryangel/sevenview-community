@@ -1,0 +1,484 @@
+/* 밀도(2026-09-03 bee 지적 "버튼 위아래가 불필요하게 커서 어설퍼 보임"): 정밀 포인터에선 36px,
+   터치(coarse pointer)에선 44px 목표를 유지한다. */
+.button {
+  align-items: center;
+  border: 1px solid var(--border-standard);
+  border-radius: var(--radius-control);
+  cursor: pointer;
+  display: inline-flex;
+  font-family: "Figtree Variable", "Noto Sans KR Variable", sans-serif;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  gap: var(--space-2);
+  justify-content: center;
+  line-height: 1.2;
+  min-block-size: 2.25rem;
+  padding: var(--space-2) var(--space-3);
+  transition:
+    opacity var(--motion-micro) ease-out,
+    transform var(--motion-micro) ease-out;
+}
+
+.button__label {
+  align-items: center;
+  display: inline-flex;
+  gap: var(--space-2);
+  min-inline-size: 0;
+}
+
+.button__label > svg {
+  flex: none;
+}
+
+@media (pointer: coarse) {
+  .button {
+    min-block-size: 2.75rem;
+  }
+}
+
+.button:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+.button:disabled {
+  color: var(--text-disabled);
+  cursor: not-allowed;
+  opacity: 0.68;
+}
+
+/* 주 버튼은 살짝 광택이 있고 반응한다(2026-09-03 bee: "글로시하게 빛나거나 인터랙티브").
+   위가 밝은 그라데이션 + 안쪽 하이라이트, 마우스를 올리면 살짝 떠오르며 빛줄기가 한 번 지나간다. */
+.button--primary {
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--accent-hover) 72%, white 28%) 0%,
+    var(--accent-primary) 52%,
+    color-mix(in srgb, var(--accent-primary) 84%, black 16%) 100%
+  );
+  border-color: var(--accent-primary);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 35%);
+  color: var(--accent-ink);
+  overflow: hidden;
+  position: relative;
+  transition:
+    box-shadow var(--motion-standard) ease-out,
+    opacity var(--motion-micro) ease-out,
+    transform var(--motion-micro) ease-out;
+}
+
+.button--primary::after {
+  background: linear-gradient(105deg, transparent 0%, rgb(255 255 255 / 55%) 50%, transparent 100%);
+  content: "";
+  inline-size: 40%;
+  inset: -40% auto -40% 0;
+  pointer-events: none;
+  position: absolute;
+  transform: translateX(-160%) skewX(-20deg);
+}
+
+/* 위치는 움직이지 않는다(2026-09-03 bee) — 빛(링·그림자·빛줄기)으로만 반응한다. */
+.button--primary:hover:not(:disabled) {
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 45%),
+    0 0 0 3px var(--accent-surface),
+    0 8px 20px rgb(1 157 201 / 30%);
+}
+
+.button--primary:hover:not(:disabled)::after {
+  animation: button-sheen 700ms ease-out;
+}
+
+/* 화면의 주 행동 하나(AI 자동 정렬)만 대기 중에 천천히 빛난다. */
+.button--glow:not(:disabled) {
+  animation: button-glow 2.8s ease-in-out infinite;
+}
+
+.button--primary:disabled::after {
+  display: none;
+}
+
+@keyframes button-sheen {
+  to {
+    transform: translateX(420%) skewX(-20deg);
+  }
+}
+
+@keyframes button-glow {
+  0%,
+  100% {
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 35%),
+      0 0 0 0 rgb(1 157 201 / 0);
+  }
+
+  50% {
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 35%),
+      0 0 0 6px rgb(1 157 201 / 18%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .button--primary::after,
+  .button--glow:not(:disabled) {
+    animation: none;
+  }
+}
+
+.button--primary[aria-busy="true"] {
+  color: var(--accent-ink);
+  cursor: progress;
+  opacity: 1;
+}
+
+/* 비활성 주 버튼: 흐린 시안 위 회색 글자는 읽히지 않는다(게이트 라이브 캡처, 2026-09-03) —
+   활성과 확실히 다른 중립 면으로. */
+.button--primary:disabled {
+  background: var(--surface-raised);
+  border-color: var(--border-standard);
+  color: var(--text-disabled);
+}
+
+.button--secondary {
+  background: var(--surface-raised);
+}
+
+.button--secondary:hover:not(:disabled),
+.button--quiet:hover:not(:disabled) {
+  background: var(--surface-hover);
+}
+
+.button--quiet {
+  background: transparent;
+  border-color: transparent;
+}
+
+.button--destructive {
+  background: transparent;
+  border-color: var(--status-error);
+  color: var(--status-error);
+}
+
+.button__spinner,
+.drop-zone__spinner,
+.view-slot__spinner {
+  animation: spin 900ms linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.privacy-status {
+  align-items: center;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-control);
+  display: inline-flex;
+  font-size: 0.75rem;
+  font-weight: 550;
+  /* 헤더 줄의 버튼(2.25rem)과 높이를 맞춘다 — 한 줄 리듬. */
+  min-block-size: 2.25rem;
+  padding-inline: var(--space-3);
+}
+
+@media (pointer: coarse) {
+  .privacy-status {
+    min-block-size: 2.75rem;
+  }
+}
+
+.privacy-status__stage {
+  display: grid;
+  /* 상태 전환 시 폭 출렁임을 막는 최소폭만 두고, 내용은 가운데 —
+     고정폭+좌측 정렬이 만들던 내부 공백(버튼과 멀어 보임)을 없앤다. */
+  justify-items: center;
+  min-inline-size: 7.25rem;
+}
+
+.privacy-status__content {
+  align-items: center;
+  display: inline-flex;
+  gap: var(--space-2);
+  grid-area: 1 / 1;
+}
+
+.privacy-status__dot {
+  background: currentcolor;
+  border-radius: 999px;
+  block-size: 0.625rem;
+  inline-size: 0.625rem;
+}
+
+.privacy-status__content--incoming {
+  animation: privacy-status-fade-in var(--motion-micro) ease-out;
+}
+
+.privacy-status__content--outgoing {
+  animation: privacy-status-fade-out var(--motion-micro) ease-out forwards;
+}
+
+@keyframes privacy-status-fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes privacy-status-fade-out {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+/* 입력을 기다릴 때 점이 천천히 숨 쉰다 — 도구가 살아 있다는 신호(2026-09-02). */
+.privacy-status--idle .privacy-status__dot {
+  animation: privacy-status-breathe 2.4s ease-in-out infinite;
+}
+
+.privacy-status--done {
+  color: var(--status-success, #4ade80);
+}
+
+.privacy-status--error {
+  border-color: color-mix(in srgb, var(--status-error, #ff6b6b) 45%, transparent);
+  color: var(--status-error, #ff6b6b);
+}
+
+@keyframes privacy-status-breathe {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.45;
+    transform: scale(0.8);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .privacy-status--idle .privacy-status__dot {
+    animation: none;
+  }
+}
+
+.privacy-status--localReady {
+  color: var(--text-secondary);
+}
+
+.privacy-status--localReady .privacy-status__dot {
+  background: var(--status-success);
+}
+
+.privacy-status--modelLoading {
+  color: var(--text-secondary);
+}
+
+.privacy-status--modelError {
+  color: var(--status-warning);
+}
+
+.drop-zone-field {
+  border: 0;
+  margin: 0;
+  min-inline-size: 0;
+  padding: 0;
+}
+
+.drop-zone {
+  align-items: center;
+  background: var(--surface-panel);
+  border: 1px dashed var(--border-standard);
+  border-radius: var(--radius-panel);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  justify-content: center;
+  min-block-size: 11rem;
+  padding: var(--space-6);
+  /* 숨김 파일 input(absolute)의 containing block — 없으면 문서 스크롤 높이를 늘린다. */
+  position: relative;
+  text-align: center;
+}
+
+.drop-zone:hover,
+.drop-zone--dragOver {
+  background: var(--accent-surface);
+  border-color: var(--accent-primary);
+}
+
+/* 끌어다 놓는 동안 테두리가 숨 쉰다 — 받을 준비가 됐다는 신호(아이콘 반응은 .drop-zone__icon 아래). */
+.drop-zone--dragOver {
+  animation: drop-zone-breathe 1.2s ease-in-out infinite;
+}
+
+@keyframes drop-zone-breathe {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgb(1 157 201 / 0);
+  }
+
+  50% {
+    box-shadow: 0 0 0 6px rgb(1 157 201 / 16%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .drop-zone--dragOver {
+    animation: none;
+  }
+}
+
+.drop-zone--partial {
+  border-color: var(--status-warning);
+}
+
+.drop-zone--invalid {
+  border-color: var(--status-error);
+}
+
+.drop-zone--disabled {
+  cursor: not-allowed;
+  opacity: 0.56;
+}
+
+.drop-zone input {
+  block-size: 1px;
+  clip-path: inset(50%);
+  inline-size: 1px;
+  inset-block-start: 0;
+  inset-inline-start: 0;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+}
+
+.drop-zone strong {
+  font-family: "Figtree Variable", "Noto Sans KR Variable", sans-serif;
+  font-size: 1.0625rem;
+}
+
+.drop-zone > span:last-child {
+  color: var(--text-muted);
+  font-size: 0.875rem;
+  line-height: 1.5;
+  word-break: keep-all;
+}
+
+.drop-zone__privacy-copy {
+  white-space: nowrap;
+}
+
+.drop-zone__icon {
+  align-items: center;
+  background: var(--surface-raised);
+  border: 1px solid var(--border-standard);
+  border-radius: var(--radius-card);
+  display: flex;
+  justify-content: center;
+  min-block-size: 3.5rem;
+  min-inline-size: 3.5rem;
+  transition:
+    border-color var(--motion-micro) ease-out,
+    transform var(--motion-standard) ease-out;
+}
+
+/* 마우스를 올리거나 끌어다 놓는 동안 아이콘 테두리만 accent로(움직임 없음). */
+.drop-zone:hover .drop-zone__icon,
+.drop-zone--dragOver .drop-zone__icon {
+  border-color: var(--accent-primary);
+}
+
+.notice {
+  align-items: flex-start;
+  background: var(--surface-raised);
+  border: 1px solid var(--border-standard);
+  border-radius: var(--radius-card);
+  display: flex;
+  gap: var(--space-3);
+  padding: var(--space-4);
+}
+
+.notice strong {
+  display: block;
+  font-size: 0.875rem;
+  margin-block-end: var(--space-1);
+  word-break: keep-all;
+}
+
+.notice p {
+  color: var(--text-muted);
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  margin: 0;
+  overflow-wrap: anywhere;
+  word-break: keep-all;
+}
+
+.notice__body {
+  flex: 1;
+  min-inline-size: 0;
+}
+
+.notice__dismiss {
+  align-items: center;
+  background: transparent;
+  border: 0;
+  border-radius: var(--radius-control);
+  color: var(--text-muted);
+  cursor: pointer;
+  display: inline-flex;
+  justify-content: center;
+  min-block-size: 2.25rem;
+  min-inline-size: 2.25rem;
+}
+
+.notice progress {
+  accent-color: var(--accent-primary);
+  inline-size: 100%;
+  margin-block-start: var(--space-3);
+}
+
+.notice--success > svg {
+  color: var(--status-success);
+}
+
+.notice--warning > svg {
+  color: var(--status-warning);
+}
+
+.notice--error > svg {
+  color: var(--status-error);
+}
+
+.notice--info > svg {
+  color: var(--accent-hover);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .button__spinner,
+  .drop-zone__spinner,
+  .view-slot__spinner {
+    animation: none;
+  }
+
+  .privacy-status__content--incoming,
+  .privacy-status__content--outgoing {
+    animation: none;
+  }
+
+  .privacy-status__content--outgoing {
+    display: none;
+  }
+}

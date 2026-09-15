@@ -1,0 +1,494 @@
+.workspace-app {
+  background: var(--surface-canvas);
+  block-size: 100%;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  min-block-size: 0;
+}
+
+.workspace-local-actions {
+  align-items: center;
+  background: var(--surface-panel);
+  border-block-end: 1px solid var(--border-subtle);
+  display: flex;
+  justify-content: flex-end;
+  min-inline-size: 0;
+  padding: var(--space-2) var(--space-4);
+}
+
+.workspace-local-actions--empty {
+  border: 0;
+  padding: 0;
+}
+
+.app-footer {
+  align-items: center;
+  border-block-start: 1px solid var(--border-standard);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-4);
+  justify-content: space-between;
+  padding: var(--space-2) var(--space-4);
+}
+
+.app-footer__brand {
+  align-items: center;
+  display: flex;
+  gap: var(--space-3);
+  min-inline-size: 0;
+}
+
+.app-footer__actions {
+  align-items: center;
+  display: flex;
+  gap: var(--space-2);
+}
+
+.app-footer__logo {
+  display: block;
+  flex: none;
+  opacity: 0.82;
+}
+
+.app-footer__meta {
+  color: var(--text-muted);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.025em;
+  line-height: 1.4;
+  word-break: keep-all;
+}
+
+.workspace-command-bar {
+  align-items: center;
+  background: var(--surface-panel);
+  border-block-end: 1px solid var(--border-subtle);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-4);
+  justify-content: space-between;
+  min-block-size: 3.25rem;
+  min-inline-size: 0;
+  padding: var(--space-2) var(--space-4);
+}
+
+.workspace-brand,
+.workspace-command-bar__actions {
+  align-items: center;
+  display: flex;
+}
+
+.workspace-brand {
+  color: var(--text-primary);
+  gap: var(--space-3);
+  text-decoration: none;
+}
+
+.workspace-brand__mark {
+  align-items: center;
+  background: var(--surface-raised);
+  border: 1px solid var(--border-standard);
+  border-radius: var(--radius-card);
+  color: var(--text-primary);
+  display: inline-flex;
+  font-family: "Figtree Variable", "Noto Sans KR Variable", sans-serif;
+  font-size: 1rem;
+  font-weight: 750;
+  justify-content: center;
+  min-block-size: 2rem;
+  min-inline-size: 2rem;
+}
+
+.workspace-brand > span:last-child {
+  display: flex;
+  flex-direction: column;
+}
+
+.workspace-brand strong {
+  font-family: "Figtree Variable", sans-serif;
+  font-size: 0.9375rem;
+}
+
+.workspace-brand small {
+  color: var(--text-muted);
+  font-size: 0.6875rem;
+}
+
+.workspace-command-bar__actions {
+  flex: 1 1 auto;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  justify-content: flex-end;
+  min-inline-size: 0;
+}
+
+.workspace-command-bar__actions .button__label {
+  white-space: nowrap;
+}
+
+.workspace-command-bar__reset {
+  position: relative;
+}
+
+.workspace-command-bar__reset-confirm {
+  background: var(--surface-raised);
+  border: 1px solid var(--status-warning);
+  border-radius: var(--radius-card);
+  display: grid;
+  gap: var(--space-2);
+  inset-block-start: calc(100% + var(--space-2));
+  inset-inline-end: 0;
+  min-inline-size: 19rem;
+  padding: var(--space-3);
+  position: absolute;
+  text-align: start;
+  z-index: 30;
+}
+
+.workspace-command-bar__reset-confirm strong {
+  font-size: 0.8125rem;
+}
+
+.workspace-command-bar__reset-confirm p {
+  color: var(--text-secondary);
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  margin: 0;
+  word-break: keep-all;
+}
+
+.workspace-command-bar__reset-confirm > div {
+  display: flex;
+  gap: var(--space-2);
+  justify-content: flex-end;
+}
+
+.workspace-shell {
+  block-size: 100%;
+  display: grid;
+  grid-template-columns: 15rem minmax(0, 1fr);
+  min-block-size: 0;
+  min-inline-size: 0;
+  overflow: hidden;
+}
+
+.workspace-shell:has(.inspector-surface) {
+  grid-template-columns: 15rem minmax(0, 1fr);
+}
+
+.inspector-surface {
+  animation: inspector-enter var(--motion-standard) ease-in-out both;
+  background: var(--surface-panel);
+  display: grid;
+  grid-template-rows: auto auto minmax(0, 1fr);
+  min-block-size: 0;
+  min-inline-size: 0;
+  overflow: hidden;
+  position: relative;
+}
+
+.inspector-surface__notice {
+  inset-block-start: var(--space-12);
+  inset-inline: var(--space-4);
+  max-block-size: 40%;
+  overflow-y: auto;
+  pointer-events: none;
+  position: absolute;
+  z-index: 3;
+}
+
+.inspector-surface__notice .review-notice-stack {
+  inset: auto;
+  position: relative;
+}
+
+.inspector-surface:not(:has(.inspector-surface__navigation)) {
+  grid-template-rows: auto minmax(0, 1fr);
+}
+.inspector-surface__scrim {
+  display: none;
+}
+.inspector-surface__header {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+}
+.inspector-surface__header h2 {
+  font-size: 1rem;
+  margin: 0;
+}
+.inspector-surface__navigation {
+  display: flex;
+  gap: var(--space-2);
+  padding: 0 var(--space-4) var(--space-2);
+}
+
+.sequence-rail {
+  background: var(--surface-panel);
+  min-inline-size: 0;
+  overflow-y: auto;
+  padding: var(--space-4);
+}
+
+.sequence-rail {
+  border-inline-end: 1px solid var(--border-subtle);
+  /* 예비 트레이가 생겨 스크롤바가 나타나도 슬롯 폭이 줄지 않게 자리를 예약한다
+     (클래식 스크롤바 환경에서 라벨이 "우측 4…"로 잘리던 회귀, 2026-09-02). */
+  scrollbar-gutter: stable;
+}
+
+.inspector-panel {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  min-block-size: 0;
+  min-inline-size: 0;
+  overflow: hidden;
+}
+
+.inspector-panel > .panel-heading {
+  border-block: 1px solid var(--border-subtle);
+  margin: 0;
+  padding: var(--space-2) var(--space-4);
+}
+
+.inspector-panel__body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(16rem, 19rem);
+  min-block-size: 0;
+  min-inline-size: 0;
+  overflow: hidden;
+}
+
+.inspector-panel__scroll {
+  border-inline-start: 1px solid var(--border-subtle);
+  min-block-size: 0;
+  min-inline-size: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: var(--space-4);
+  scrollbar-gutter: stable;
+}
+
+.inspector-surface > .recovery-panel {
+  display: block;
+  overflow-y: auto;
+  padding: var(--space-4);
+}
+
+@keyframes inspector-enter {
+  from {
+    opacity: 0;
+    transform: translateX(var(--space-4));
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .inspector-surface {
+    animation: none;
+  }
+}
+
+.workspace-shell__center {
+  min-inline-size: 0;
+  /* 뷰 세트·프레이밍을 바꾸면 헤더·그리드 크기가 함께 변한다. 브라우저 스크롤 앵커링이
+     그 순간 열을 제멋대로 스크롤해(0→185px 실측, 2026-09-03) 상단 도구막대가 시야에서
+     사라지고 팝오버가 닫혔다. 앱이 내용을 바꾸는 열이라 앵커링을 끈다. */
+  overflow-anchor: none;
+  overflow-y: auto;
+  padding: var(--space-5);
+  position: relative;
+}
+
+.review-notice-stack {
+  display: grid;
+  gap: var(--space-3);
+  inset-block-start: var(--space-5);
+  inset-inline: var(--space-5);
+  pointer-events: none;
+  position: absolute;
+  z-index: 2;
+}
+
+.review-notice-stack .transient-review-notice {
+  pointer-events: auto;
+}
+
+.review-notice-stack .transient-review-notice--leaving {
+  pointer-events: none;
+}
+
+.contact-sheet-grid {
+  display: grid;
+  gap: var(--space-4);
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+}
+
+.contact-sheet-grid > .view-slot-wrap {
+  grid-column: span 2;
+}
+
+.contact-sheet-grid > .view-slot-wrap:nth-child(5) {
+  grid-column: 2 / span 2;
+}
+
+.export-bar {
+  min-block-size: 3.75rem;
+}
+
+.empty-workspace {
+  display: flex;
+  flex-direction: column;
+  inline-size: 100%;
+  /* 세로 중앙 정렬 — 내용이 넘치면 safe가 상단 클리핑을 막고 스크롤로 전환한다. */
+  justify-content: safe center;
+  margin-inline: auto;
+  /* 접수창 폭: 랜딩(48rem)보다 좁게 — 서식 한 장 크기. */
+  max-inline-size: 42rem;
+  min-block-size: 0;
+  overflow-y: auto;
+  padding: var(--space-8) var(--space-6);
+}
+
+.workspace-fallback {
+  margin-inline: auto;
+  max-inline-size: 40rem;
+  padding: var(--space-12) var(--space-6);
+}
+
+@media (max-width: 1279px) {
+  .workspace-shell {
+    grid-template-columns: 14rem minmax(0, 1fr);
+  }
+
+  .workspace-shell:has(.inspector-surface) {
+    grid-template-columns: 14rem minmax(0, 1fr);
+  }
+
+  .contact-sheet-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .contact-sheet-grid > .view-slot-wrap,
+  .contact-sheet-grid > .view-slot-wrap:nth-child(5) {
+    grid-column: auto;
+  }
+}
+
+@media (max-width: 1023px) {
+  .sevenview-app {
+    block-size: auto;
+  }
+
+  .workspace-app {
+    block-size: auto;
+  }
+
+  .workspace-shell {
+    block-size: auto;
+    display: flex;
+    flex-direction: column;
+    min-block-size: 0;
+    overflow: visible;
+  }
+
+  .inspector-surface {
+    background: var(--surface-panel);
+    inset: var(--space-4);
+    border: 1px solid var(--border-standard);
+    border-radius: var(--radius-panel);
+    margin-inline: auto;
+    max-inline-size: 64rem;
+    position: fixed;
+    z-index: 5;
+  }
+
+  .inspector-surface__scrim {
+    background: var(--surface-scrim);
+    border: 0;
+    display: block;
+    inset: 0;
+    position: fixed;
+    z-index: 4;
+  }
+
+  .sequence-rail,
+  .workspace-shell__center {
+    overflow: visible;
+  }
+
+  .sequence-rail {
+    border-block-end: 1px solid var(--border-subtle);
+    border-inline-end: 0;
+  }
+
+  .sequence-rail__list {
+    display: grid;
+    gap: var(--space-3);
+    grid-auto-columns: 14rem;
+    grid-auto-flow: column;
+    overflow-x: auto;
+    padding-block-end: var(--space-3);
+  }
+
+  .inspector-panel {
+    overflow: hidden;
+  }
+}
+
+@media (max-width: 639px) {
+  .workspace-command-bar {
+    padding-inline: var(--space-3);
+  }
+
+  .workspace-brand > span:last-child {
+    display: none;
+  }
+
+  .workspace-command-bar__actions {
+    gap: var(--space-2);
+  }
+
+  .workspace-shell__center,
+  .sequence-rail {
+    padding: var(--space-4);
+  }
+
+  .review-notice-stack {
+    inset-block-start: var(--space-4);
+    inset-inline: var(--space-4);
+  }
+
+  .contact-sheet-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .empty-workspace {
+    padding: var(--space-8) var(--space-4);
+  }
+
+  .inspector-surface {
+    inset: var(--space-2);
+  }
+
+  .inspector-panel__body {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: minmax(0, 38dvb) minmax(0, 1fr);
+  }
+
+  .inspector-panel__scroll {
+    border-block-start: 1px solid var(--border-subtle);
+    border-inline-start: 0;
+    padding: var(--space-3);
+  }
+}
+
+.workspace-shell:has(.inspector-surface) > .workspace-shell__center {
+  display: none;
+}

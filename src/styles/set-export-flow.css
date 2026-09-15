@@ -1,0 +1,55 @@
+.export-bar.export-bar--set-flow {
+  justify-content: space-between;
+}
+
+.export-bar--set-flow .export-bar__status {
+  align-items: flex-start;
+  gap: var(--space-1);
+  min-inline-size: 0;
+}
+
+.export-bar__receipt {
+  color: var(--text-primary);
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.export-bar__history {
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  max-inline-size: 100%;
+}
+
+.export-bar__history summary {
+  cursor: pointer;
+  min-block-size: var(--space-6);
+  align-content: center;
+}
+
+.export-bar__history .export-bar__usage {
+  display: block;
+  padding-block: var(--space-2);
+  overflow-wrap: anywhere;
+}
+
+.export-bar--set-flow .export-bar__action {
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+@media (pointer: coarse) {
+  .export-bar__history summary {
+    min-block-size: 2.75rem;
+  }
+}
+
+@media (max-width: 639px) {
+  .export-bar--set-flow .export-bar__action {
+    flex-direction: row;
+    inline-size: 100%;
+  }
+  .export-bar--set-flow .export-bar__action .button {
+    flex: 1 1 auto;
+    inline-size: auto;
+  }
+}

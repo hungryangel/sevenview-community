@@ -1,0 +1,53 @@
+:root {
+  color-scheme: dark;
+  /* 2026-09-03 팔레트 개정(bee 결정: Neko Health 시각 체계 참고, "세련되고 미래지향적").
+     중립 그라파이트 → 딥 네이비틸 층(#01202C 계열) + 시안 accent(#019DC9). 모든 쌍은
+     WCAG AA를 만족한다(test/design-tokens.test.ts가 고정): 보조 텍스트/패널 6.8:1,
+     테두리/카드 3.4:1, accent 텍스트/패널 5.6:1, accent 위 잉크 6.0:1. */
+  /* 2026-09-03 A/B(합성 7뷰 실측 캡처): 한 단계 밝힌 B 채택 — 사진이 가장 밝은 요소로 남으면서
+     패널·카드 경계가 살고, 밝은 진료실에서 "검은 구멍" 느낌이 줄어든다. A(#031419 계열)는
+     이 네 줄만 되돌리면 복원된다. */
+  --surface-canvas: #061c25;
+  --surface-panel: #0a2530;
+  --surface-raised: #12333f;
+  --surface-hover: #1a4352;
+  /* 사진이 놓이는 우물은 중립 회색 — 색 있는 배경은 피부톤 판독을 왜곡한다(임상 중립성). */
+  --surface-image: #1a1c1e;
+  --surface-scrim: rgba(1, 12, 17, 0.84);
+  --text-primary: #f2f7f8;
+  --text-secondary: #c9d7dc;
+  --text-muted: #94aab2;
+  --text-disabled: #60767f;
+  --border-subtle: rgba(222, 242, 247, 0.08);
+  --border-standard: #6a8894;
+  --accent-primary: #019dc9;
+  --accent-hover: #22b0da;
+  --accent-surface: rgba(1, 157, 201, 0.16);
+  /* accent 면 위의 글자색(시안 위 흰 글자는 3.2:1로 미달 → 잉크로 6.0:1). */
+  --accent-ink: #031419;
+  --status-success: #3ed49a;
+  --status-warning: #f2c94c;
+  --status-error: #f47a74;
+  --focus-ring: #8fdcf0;
+  --export-sheet-background: #f4f4f2;
+  --export-sheet-ink: #08090a;
+  --export-sheet-caption: #52565c;
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  /* 모서리: 알약(999px) 대신 한 단계 큰 둥근 모서리 — 참고 체계의 부드러움을 도구 밀도에 맞게. */
+  --radius-control: 0.5rem;
+  --radius-card: 0.75rem;
+  --radius-panel: 1rem;
+  --motion-micro: 120ms;
+  --motion-standard: 220ms;
+  --motion-emphasis: 420ms;
+  --export-session-min-inline: 21rem;
+  --memo-min-block: 5.5rem;
+}

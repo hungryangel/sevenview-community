@@ -1,0 +1,202 @@
+.comparison-viewer__divider {
+  position: absolute;
+  inset-block: 0;
+  inline-size: 44px;
+  transform: translateX(-50%);
+  cursor: ew-resize;
+  touch-action: none;
+  display: grid;
+  place-items: center;
+  color: var(--accent-ink);
+  outline-offset: -3px;
+}
+
+.comparison-viewer__divider::before {
+  content: "";
+  position: absolute;
+  inset-block: 0;
+  inline-size: 2px;
+  background: var(--text-primary);
+}
+
+.comparison-viewer__divider > span {
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  inline-size: var(--space-6);
+  block-size: var(--space-6);
+  border: 1px solid var(--text-primary);
+  border-radius: var(--radius-control);
+  background: var(--accent-primary);
+}
+
+.comparison-viewer__divider > span > svg {
+  inline-size: var(--space-4);
+  block-size: var(--space-4);
+}
+
+.comparison-viewer__divider:focus-visible,
+.comparison-editor-residual__drag:focus-visible {
+  outline: 3px solid var(--focus-ring);
+}
+
+.comparison-reference-editor__content {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-6);
+  padding-block-start: var(--space-3);
+}
+
+.comparison-editor-source,
+.comparison-editor-residual,
+.comparison-editor-sources {
+  display: grid;
+  align-content: start;
+  gap: var(--space-3);
+  min-inline-size: 0;
+}
+
+.comparison-reference-editor h3,
+.comparison-reference-editor p {
+  margin: 0;
+}
+
+.comparison-reference-editor p {
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+}
+
+.comparison-editor-source__header {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.comparison-reference-editor__original {
+  background: var(--surface-image);
+  inline-size: 100%;
+  max-inline-size: none;
+}
+
+.comparison-reference-editor__original img {
+  display: block;
+  user-select: none;
+}
+
+.comparison-editor-source__marker {
+  align-items: center;
+  background: transparent;
+  border: 0;
+  block-size: 44px;
+  color: var(--accent-ink);
+  cursor: move;
+  display: flex;
+  inline-size: 44px;
+  justify-content: center;
+  padding: 0;
+  position: absolute;
+  touch-action: none;
+  transform: translate(-50%, -50%);
+}
+
+.comparison-editor-source__marker > span {
+  background: var(--guide-color);
+  border: 2px solid var(--text-primary);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  inline-size: 24px;
+  block-size: 24px;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.comparison-editor-source__marker[aria-pressed="true"] > span {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+.comparison-editor-source__selection {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.comparison-editor-source__selection .button {
+  text-align: start;
+}
+
+.comparison-editor-residual__frame {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  inline-size: min(100%, 320px);
+  justify-self: center;
+  background: var(--surface-image);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+}
+
+.comparison-editor-residual__frame .comparison-preview-frame {
+  position: absolute;
+  inset: 0;
+}
+
+.comparison-editor-residual__frame .comparison-preview {
+  block-size: 100%;
+  inline-size: 100%;
+}
+
+.comparison-editor-residual__after {
+  opacity: 0.5;
+}
+
+.comparison-editor-residual__drag {
+  position: absolute;
+  inset: 0;
+  background: transparent;
+  border: 0;
+  cursor: grab;
+  touch-action: none;
+  outline-offset: -3px;
+}
+
+.comparison-editor-residual__drag:active {
+  cursor: grabbing;
+}
+
+.comparison-editor-residual__drag:disabled {
+  cursor: default;
+}
+
+.comparison-editor-residual__controls {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.comparison-editor-residual__controls input {
+  inline-size: 100%;
+}
+
+.comparison-editor-residual__readout {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+}
+
+@media (max-width: 767px) {
+  .comparison-reference-editor__content {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (pointer: coarse) {
+  .comparison-editor-residual__controls .inspector-control__row {
+    grid-template-columns: 44px minmax(0, 1fr) 44px 44px;
+  }
+
+  .comparison-editor-residual__controls button {
+    min-block-size: 44px;
+    min-inline-size: 44px;
+  }
+}

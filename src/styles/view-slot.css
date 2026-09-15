@@ -1,0 +1,347 @@
+.view-slot-wrap {
+  display: grid;
+  gap: var(--space-2);
+  min-inline-size: 0;
+}
+
+.view-slot {
+  align-items: center;
+  background: transparent;
+  border: 1px solid var(--border-standard);
+  border-radius: var(--radius-card);
+  cursor: pointer;
+  display: grid;
+  gap: var(--space-3);
+  grid-template-columns: 1.75rem 3.5rem minmax(0, 1fr);
+  inline-size: 100%;
+  min-block-size: 4.5rem;
+  padding: var(--space-2);
+  text-align: start;
+  transition:
+    opacity var(--motion-micro) ease-out,
+    transform var(--motion-micro) ease-out;
+}
+
+/* 타일은 움직이지 않는다(2026-09-03 bee: 위아래로 움직이는 건 싫다). 마우스를 올리면 테두리가
+   밝아지고 한 번 살짝 반짝인다(테두리 바깥 링이 퍼지며 사라짐). */
+.view-slot:hover {
+  animation: view-slot-glint 700ms ease-out;
+  background: var(--surface-raised);
+  border-color: var(--accent-hover);
+}
+
+@keyframes view-slot-glint {
+  from {
+    box-shadow: 0 0 0 0 rgb(34 176 218 / 55%);
+  }
+
+  to {
+    box-shadow: 0 0 0 6px rgb(34 176 218 / 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .view-slot:hover {
+    animation: none;
+  }
+}
+
+/* 타일 모서리 도구(확대경 켬/끔): 사진 위 오른쪽 위에 얹힌 작은 아이콘 버튼. */
+.view-slot__tools {
+  display: flex;
+  gap: var(--space-1);
+  inset-block-start: calc(var(--space-3) + var(--space-1));
+  inset-inline-end: calc(var(--space-3) + var(--space-1));
+  position: absolute;
+  z-index: 2;
+}
+
+.view-slot__tool {
+  align-items: center;
+  background: rgb(3 20 25 / 72%);
+  border: 1px solid var(--border-standard);
+  border-radius: var(--radius-control);
+  color: var(--text-secondary);
+  cursor: pointer;
+  display: inline-flex;
+  justify-content: center;
+  min-block-size: 1.75rem;
+  min-inline-size: 1.75rem;
+  opacity: 0.75;
+  transition:
+    opacity var(--motion-micro) ease-out,
+    border-color var(--motion-micro) ease-out;
+}
+
+.view-slot-wrap:hover .view-slot__tool,
+.view-slot__tool:focus-visible,
+.view-slot__tool[aria-pressed="true"] {
+  opacity: 1;
+}
+
+.view-slot__tool:hover {
+  border-color: var(--accent-hover);
+  color: var(--text-primary);
+}
+
+.view-slot__tool[aria-pressed="true"] {
+  background: var(--accent-primary);
+  border-color: var(--accent-primary);
+  color: var(--accent-ink);
+}
+
+/* 확대경이 켜진 미리보기 위에서는 커서로도 알 수 있게. 그 칸에선 정보 팝업을 숨겨 확대경과 겹치지 않게 한다. */
+.crop-preview--magnifier {
+  cursor: zoom-in;
+}
+
+.view-slot-wrap:has(.crop-preview--magnifier) .view-slot__detail {
+  display: none;
+}
+
+.view-slot[aria-current="true"] {
+  background: var(--accent-surface);
+  border-color: var(--accent-primary);
+}
+
+.view-slot__index {
+  color: var(--text-muted);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  text-align: center;
+}
+
+.view-slot__preview {
+  align-items: center;
+  aspect-ratio: 4 / 5;
+  background: var(--surface-image);
+  border-radius: var(--radius-control);
+  color: var(--text-muted);
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.view-slot__body,
+.view-slot__meta,
+.view-slot__meta > span {
+  display: flex;
+}
+
+.view-slot__body {
+  flex-direction: column;
+  gap: var(--space-1);
+  min-inline-size: 0;
+}
+
+.view-slot__body strong {
+  font-size: 0.8125rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* 레일에서는 뷰 이름을 숨기지 않는다 — 좁으면 줄바꿈으로 전부 보인다. */
+.view-slot-wrap--rail .view-slot__body strong {
+  white-space: normal;
+  word-break: keep-all;
+}
+
+.view-slot__meta {
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  gap: var(--space-2);
+}
+
+.view-slot__meta > span {
+  align-items: center;
+  gap: var(--space-1);
+  white-space: nowrap;
+}
+
+.view-slot-wrap--rail .view-slot {
+  gap: var(--space-2);
+  grid-template-columns: 1.5rem 3rem minmax(0, 1fr);
+}
+
+.view-slot-wrap--rail .view-slot__meta {
+  gap: var(--space-1);
+}
+
+.view-slot--ready .view-slot__meta > span:first-child {
+  color: var(--text-muted);
+}
+
+.view-slot--ready .view-slot__meta > span:first-child svg {
+  color: var(--status-success);
+}
+
+/* 손댄 사진: '✓ 자동' 자리를 '수동보정' 하나가 대신한다 — 첫 자식 규칙보다 강조색이 이긴다. */
+.view-slot--ready .view-slot__meta > .view-slot__adjusted {
+  color: var(--accent-hover);
+}
+
+.view-slot--warning .view-slot__meta > span:first-child {
+  color: var(--status-warning);
+}
+
+.view-slot--error .view-slot__meta > span:first-child {
+  color: var(--status-error);
+}
+
+.view-slot__reorder {
+  display: flex;
+  gap: var(--space-2);
+  justify-content: flex-end;
+}
+
+.view-slot-wrap--rail {
+  position: relative;
+}
+
+.view-slot-wrap--rail .view-slot__reorder {
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  right: var(--space-2);
+  top: var(--space-2);
+  transition: opacity var(--motion-micro) ease-out;
+  z-index: 2;
+}
+
+.view-slot-wrap--rail:hover .view-slot__reorder,
+.view-slot-wrap--rail:focus-within .view-slot__reorder {
+  opacity: 1;
+}
+
+.view-slot__reorder button {
+  align-items: center;
+  background: var(--surface-panel);
+  border: 1px solid var(--border-standard);
+  border-radius: var(--radius-control);
+  cursor: pointer;
+  display: inline-flex;
+  justify-content: center;
+  min-block-size: 2.25rem;
+  min-inline-size: 2.25rem;
+}
+
+.view-slot-wrap--rail .view-slot__reorder-trigger,
+.view-slot-wrap--rail .view-slot__reorder-menu button {
+  pointer-events: none;
+}
+
+.view-slot-wrap--rail:hover .view-slot__reorder-trigger,
+.view-slot-wrap--rail:focus-within .view-slot__reorder-trigger,
+.view-slot-wrap--rail:focus-within .view-slot__reorder-menu button {
+  pointer-events: auto;
+}
+
+.view-slot__reorder-menu {
+  background: var(--surface-panel);
+  border: 1px solid var(--border-standard);
+  border-radius: var(--radius-card);
+  display: flex;
+  gap: var(--space-2);
+  padding: var(--space-1);
+  position: absolute;
+  right: 0;
+  top: calc(100% + var(--space-1));
+}
+
+.view-slot__reorder button:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+.view-slot-wrap--contactSheet .view-slot {
+  align-items: start;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: auto auto;
+}
+
+.view-slot-wrap--contactSheet .view-slot__preview {
+  grid-column: 1;
+  inline-size: 100%;
+}
+
+.view-slot-wrap--contactSheet .view-slot__body {
+  grid-column: 1;
+}
+
+.view-slot__tile-label {
+  align-items: center;
+  display: flex;
+  gap: var(--space-2);
+}
+
+.view-slot__tile-label .view-slot__index {
+  align-items: center;
+  background: var(--surface-raised);
+  border-radius: var(--radius-control);
+  color: var(--text-secondary);
+  display: inline-flex;
+  justify-content: center;
+  min-block-size: 1.75rem;
+  min-inline-size: 1.75rem;
+}
+
+.view-slot-wrap--filmstrip .view-slot {
+  grid-template-columns: 1.25rem 3rem minmax(7rem, 1fr);
+}
+
+/* 타일 정보 팝업 — 마우스를 올리거나 포커스가 들어올 때만 보이고, 벗어나면 사라진다. */
+.view-slot-wrap--contactSheet {
+  position: relative;
+}
+
+.view-slot__detail {
+  backdrop-filter: blur(6px);
+  background: rgb(8 9 10 / 84%);
+  border: 1px solid var(--border-standard);
+  border-radius: var(--radius-control);
+  color: var(--text-secondary);
+  font-size: 0.75rem;
+  inset-block-end: var(--space-3);
+  inset-inline: var(--space-3);
+  line-height: 1.4;
+  opacity: 0;
+  padding: var(--space-3);
+  pointer-events: none;
+  position: absolute;
+  transition: opacity var(--motion-micro) ease-out;
+  z-index: 5;
+}
+
+.view-slot__detail dl {
+  display: grid;
+  gap: 2px var(--space-3);
+  grid-template-columns: auto minmax(0, 1fr);
+  margin: 0;
+}
+
+.view-slot__detail dl > div {
+  display: contents;
+}
+
+.view-slot__detail dt {
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.view-slot__detail dd {
+  color: var(--text-primary);
+  font-variant-numeric: tabular-nums;
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.view-slot-wrap--contactSheet:hover .view-slot__detail,
+.view-slot-wrap--contactSheet:focus-within .view-slot__detail {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .view-slot__detail {
+    transition: none;
+  }
+}

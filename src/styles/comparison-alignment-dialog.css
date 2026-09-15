@@ -1,0 +1,84 @@
+.comparison-alignment-dialog {
+  box-sizing: border-box;
+  inline-size: min(72rem, calc(100vw - var(--space-4)));
+  max-inline-size: none;
+  max-block-size: calc(100dvh - var(--space-4));
+  padding: var(--space-5);
+  color: var(--text-primary);
+  background: var(--surface-panel);
+  border: 1px solid var(--border-standard);
+  border-radius: var(--radius-card);
+  overflow: auto;
+  overscroll-behavior: contain;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+.comparison-alignment-dialog::backdrop {
+  background: rgb(0 0 0 / 64%);
+}
+.comparison-alignment-dialog__header {
+  position: sticky;
+  inset-block-start: 0;
+  z-index: 4;
+  min-block-size: 44px;
+  background: var(--surface-panel);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-3);
+}
+.comparison-alignment-dialog .comparison-paired-workbench__step {
+  position: sticky;
+  inset-block-start: 44px;
+  z-index: 4;
+  box-sizing: border-box;
+  min-block-size: 3.5rem;
+  padding-block: var(--space-2);
+  background: var(--surface-panel);
+}
+.comparison-alignment-dialog__header h2 {
+  margin: 0;
+  font-size: 1.25rem;
+}
+.comparison-alignment-dialog__hint {
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+}
+.comparison-alignment-dialog__direction {
+  display: grid;
+  gap: var(--space-2);
+  margin-block: var(--space-3);
+}
+.comparison-alignment-dialog__direction select {
+  min-block-size: 44px;
+  padding: var(--space-2) var(--space-3);
+  color: var(--text-primary);
+  background: var(--surface-raised);
+  border: 1px solid var(--border-standard);
+  border-radius: var(--radius-control);
+}
+.comparison-alignment-workbench {
+  margin-block: var(--space-4);
+}
+.comparison-alignment-dialog .comparison-paired-workbench__source-area {
+  position: sticky;
+  inset-block-start: calc(44px + 3.5rem);
+  z-index: 2;
+  padding-block: var(--space-2);
+  background: var(--surface-panel);
+}
+.comparison-alignment-dialog .comparison-paired-workbench__actions {
+  position: sticky;
+  inset-block-end: calc(-1 * var(--space-5));
+  padding-block: var(--space-3);
+  z-index: 3;
+  background: var(--surface-panel);
+}
+@media (max-width: 30rem) {
+  .comparison-alignment-dialog {
+    padding: var(--space-3);
+  }
+  .comparison-alignment-dialog__header h2 {
+    font-size: 1rem;
+  }
+}

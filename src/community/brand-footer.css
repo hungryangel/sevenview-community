@@ -63,6 +63,29 @@
   flex-basis: 100%;
   max-width: 48rem;
 }
+.sv-brand-footer .usage-preference {
+  display: grid;
+  flex-basis: 100%;
+  gap: var(--b-8);
+  max-width: 48rem;
+}
+.sv-brand-footer .usage-preference label {
+  align-items: center;
+  cursor: pointer;
+  display: inline-flex;
+  gap: var(--b-8);
+  min-height: var(--b-44);
+  width: fit-content;
+}
+.sv-brand-footer .usage-preference input {
+  accent-color: var(--b-focus);
+}
+.sv-brand-footer .usage-preference p {
+  color: var(--b-muted);
+  line-height: 1.6;
+  margin: 0;
+  word-break: keep-all;
+}
 .sv-analytics summary {
   cursor: pointer;
   padding-block: var(--b-12);

@@ -107,15 +107,17 @@ intact when contributing. See [CONTRIBUTING.md](CONTRIBUTING.md).
 ## Privacy and scope
 
 Selected photos and analysis results are not uploaded to an application server.
-Models, WASM and fonts are served from the same origin and run locally. The host
-can retain ordinary page/asset request logs. Local aggregate usage counts are
-not a cloud patient record. Exported files contain photos; consent, retention and
-sharing decisions remain with the operator. See [Privacy](docs/PRIVACY.md) and
-[Model limitations](docs/MODEL_CARD.md).
+Models, WASM and fonts are served from the same origin and run locally. The official
+site counts three fixed usage events by default, with an opt-out and GPC/DNT support.
+Its payload is only the event name; the aggregate database retains UTC day, event and
+count for 90 days. Cloudflare still processes transport metadata such as IP addresses.
+Exported files contain photos; consent, retention and sharing decisions remain with
+the operator. See [Privacy](docs/PRIVACY.md), [usage aggregation](docs/USAGE_AGGREGATION.md)
+and [model limitations](docs/MODEL_CARD.md).
 
 The introduction offers optional, per-visit Clarity analytics (off by default).
-The photo app and exported files never load Clarity. The official website is
-hosted as static assets on Cloudflare Pages, without metered server functions.
+The photo app and exported files never load Clarity. Static application assets remain
+on Cloudflare Pages; aggregate events go to a separate Free-plan Worker and D1 database.
 
 ## License and hospital customization
 

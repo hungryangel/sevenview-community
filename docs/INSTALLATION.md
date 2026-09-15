@@ -81,7 +81,7 @@ Deploy the complete `dist/` directory to an HTTPS static host:
   files without rewriting their contents to HTML. Missing assets must not return
   an HTML page with a misleading 200 status.
 - Serve WASM with `application/wasm`; retain generated hashed asset filenames.
-- Keep scripts/models/fonts on the same origin. Do not add photo upload or
+- Keep scripts/models/fonts on the same origin. Do not add photo upload or new
   analytics integrations without separately reviewing privacy requirements.
 - Do not publish local `.env`, `.vercel`, patient data, private branches or
   operator notes. Run the release guard against a clean source/build tree.
@@ -99,11 +99,21 @@ Build locally with `pnpm build`, then deploy the complete `dist/` directory
 using `wrangler pages deploy dist --project-name YOUR_PROJECT --branch main`.
 Create your own Pages project first. Do not deploy a fork into VELNOC's project.
 The checked-in `wrangler.jsonc` describes the official static build output;
-change its project name for your own deployment. There are no Functions,
-Workers, databases, R2 buckets or paid image transformations. Static asset
-requests are currently free and unlimited; build/file limits still apply.
+change its project name for your own deployment. There are no Pages Functions,
+R2 buckets or paid image transformations. Static assets stay independent from
+the optional aggregate collector described below. Static asset requests are
+currently free and unlimited; build/file limits still apply.
 See [Cloudflare pricing](https://developers.cloudflare.com/pages/functions/pricing/).
 Attach the custom domain in Pages before creating its DNS record.
+
+The official build sets `VITE_USAGE_ENDPOINT` to an exact HTTPS `/events` URL. This
+adds only that origin to `connect-src`. Self-hosted builds should leave the variable
+unset unless they deploy and review their own compatible collector. The public app
+must continue to work if the collector is offline or reaches a Free-plan quota.
+
+Collector deployment and authenticated aggregate reporting are documented in
+[Usage aggregation](USAGE_AGGREGATION.md). It is a separate Worker and D1 database;
+it never receives photo or filename fields.
 
 The build pre-renders the introduction for crawlers and creates distinct app
 HTML with its restrictive CSP. The optional Clarity loader only accepts the

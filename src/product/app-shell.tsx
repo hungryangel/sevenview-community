@@ -1,11 +1,13 @@
 import type { KeyboardEvent, ReactNode } from "react"
 import { useEffect, useLayoutEffect, useRef, useState } from "react"
 
-import { AppFooter } from "./app-footer"
+import { APP_VERSION, AppFooter } from "./app-footer"
 import { useGuideColor } from "./guide-color"
 import { GuideDialog } from "./guide-dialog"
 import { useGuideWidth } from "./guide-width"
 import { HelpSurface } from "./help-surface"
+import { WelcomeDialog } from "./welcome-dialog"
+import { markWelcomeSeen, shouldShowWelcome } from "./welcome-state"
 import type { WorkspaceStatus } from "./workspace"
 import { WorkspaceCommandBar } from "./workspace-command-bar"
 import { WorkspaceHeaderHost } from "./workspace-header-action"
@@ -65,12 +67,25 @@ export function AppShell({
   const [guideOpen, setGuideOpen] = useState(false)
   const [actionHost, setActionHost] = useState<HTMLElement | null>(null)
   const [helpOpen, setHelpOpen] = useState(false)
+  const [welcomeOpen, setWelcomeOpen] = useState(() => shouldShowWelcome(APP_VERSION))
+  const settingsButtonRef = useRef<HTMLButtonElement>(null)
+  const restoreSettingsFocusRef = useRef(false)
   const [guideColor, changeGuideColor] = useGuideColor()
   const [guideWidth, changeGuideWidth] = useGuideWidth()
   const startedAt = useRef(Date.now())
   const focusAfterActivation = useRef<"heading" | "tab" | null>(null)
   const activeUi = WORKFLOW_UI[activeWorkflow]
   const activeStatus = activeWorkflow === "sevenView" ? sevenViewStatus : comparisonStatus
+  const closeWelcome = () => {
+    markWelcomeSeen(APP_VERSION)
+    setWelcomeOpen(false)
+  }
+
+  useEffect(() => {
+    if (welcomeOpen || !restoreSettingsFocusRef.current) return
+    restoreSettingsFocusRef.current = false
+    settingsButtonRef.current?.focus()
+  }, [welcomeOpen])
 
   useEffect(() => {
     const needsGuard = [sevenViewStatus, comparisonStatus].some(
@@ -180,7 +195,7 @@ export function AppShell({
             )
           })}
         </div>
-        <AppFooter onOpenHelp={() => setHelpOpen(true)} />
+        <AppFooter onOpenHelp={() => setHelpOpen(true)} settingsButtonRef={settingsButtonRef} />
         <GuideDialog onClose={() => setGuideOpen(false)} open={guideOpen} />
         <HelpSurface
           exportCount={(sevenViewStatus.exportCount ?? 0) + (comparisonStatus.exportCount ?? 0)}
@@ -189,12 +204,26 @@ export function AppShell({
           onChangeGuideColor={changeGuideColor}
           onChangeGuideWidth={changeGuideWidth}
           onClose={() => setHelpOpen(false)}
+          onOpenWelcome={() => {
+            restoreSettingsFocusRef.current = true
+            setHelpOpen(false)
+            setWelcomeOpen(true)
+          }}
           open={helpOpen}
           reviewCount={(sevenViewStatus.reviewCount ?? 0) + (comparisonStatus.reviewCount ?? 0)}
           sessionStartedAt={Math.min(
             sevenViewStatus.sessionStartedAt ?? startedAt.current,
             comparisonStatus.sessionStartedAt ?? startedAt.current,
           )}
+        />
+        <WelcomeDialog
+          onClose={closeWelcome}
+          onOpenPrivacy={() => {
+            closeWelcome()
+            setHelpOpen(true)
+          }}
+          open={welcomeOpen}
+          version={APP_VERSION}
         />
       </div>
     </WorkspaceHeaderHost>

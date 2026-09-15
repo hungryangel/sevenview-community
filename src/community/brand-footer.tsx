@@ -1,3 +1,4 @@
+import { UsagePreference } from "../usage/usage-preference"
 import { AnalyticsPreference } from "./analytics-preference"
 import "./brand-footer.css"
 
@@ -35,6 +36,7 @@ export function BrandFooter({ repositoryUrl }: { readonly repositoryUrl: string 
             <a href={`${repositoryUrl}/blob/main/docs/PRIVACY.md`}>개인정보 처리 안내</a>
           </>
         )}
+        <UsagePreference />
         <AnalyticsPreference />
       </div>
     </footer>

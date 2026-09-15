@@ -1,5 +1,5 @@
 // @vitest-environment jsdom
-import { cleanup, render, screen } from "@testing-library/react"
+import { cleanup, fireEvent, render, screen } from "@testing-library/react"
 import { afterEach, describe, expect, it } from "vitest"
 import { CommunityLanding } from "../src/community/community-landing"
 
@@ -39,5 +39,18 @@ describe("VELNOC Community guide", () => {
     const { container } = render(<CommunityLanding repositoryUrl={null} />)
     expect(container.querySelector('a[href*="null"]')).toBeNull()
     expect(screen.queryByRole("link", { name: "상세 설치 안내" })).toBeNull()
+  })
+
+  it("offers a dedicated aggregate-usage preference independently of Clarity", () => {
+    // Given: the public landing page with default aggregate collection enabled.
+    render(<CommunityLanding repositoryUrl={repositoryUrl} />)
+
+    // When: the visitor turns aggregate collection off in the footer.
+    const preference = screen.getByRole("checkbox", { name: "익명 사용 집계 허용" })
+    fireEvent.click(preference)
+
+    // Then: the preference is off while the separate Clarity control remains available.
+    expect((preference as HTMLInputElement).checked).toBe(false)
+    expect(screen.getByText(/Microsoft Clarity/)).toBeTruthy()
   })
 })

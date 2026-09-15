@@ -6,7 +6,7 @@ import { buildContentSecurityPolicy } from "./build/content-security-policy.ts"
 
 // 운영 빌드에만 CSP 메타를 심는다(개발 서버는 HMR 인라인 스크립트가 필요해 제외).
 // 사진이 브라우저 밖으로 나갈 수 있는 연결 경로를 브라우저 수준에서 봉쇄한다.
-function contentSecurityPolicyPlugin(): Plugin {
+function contentSecurityPolicyPlugin(usageEndpoint?: string): Plugin {
   return {
     name: "sevenview-content-security-policy",
     apply: "build",
@@ -15,7 +15,7 @@ function contentSecurityPolicyPlugin(): Plugin {
         tag: "meta",
         attrs: {
           "http-equiv": "Content-Security-Policy",
-          content: buildContentSecurityPolicy(),
+          content: buildContentSecurityPolicy(usageEndpoint),
         },
         injectTo: "head-prepend",
       },
@@ -26,6 +26,9 @@ function contentSecurityPolicyPlugin(): Plugin {
 export default defineConfig(({ mode }) => {
   const environment = loadEnv(mode, ".", "")
   const { VITE_BASE_PATH: configuredBasePath } = environment
+  // biome-ignore lint/complexity/useLiteralKeys: strict index-signature access is required here.
+  const usageEndpoint = environment["VITE_USAGE_ENDPOINT"]
+  // biome-ignore lint/complexity/useLiteralKeys: strict index-signature access is required here.
   if (environment["VITE_BETA_TELEMETRY_ENDPOINT"] !== undefined) {
     throw new Error("Community builds reject beta telemetry configuration")
   }
@@ -34,7 +37,7 @@ export default defineConfig(({ mode }) => {
     base: normalizeBasePath(configuredBasePath),
     plugins: [
       react(),
-      contentSecurityPolicyPlugin(),
+      contentSecurityPolicyPlugin(usageEndpoint),
       viteStaticCopy({
         targets: [
           {

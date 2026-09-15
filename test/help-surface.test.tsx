@@ -114,4 +114,17 @@ describe("HelpSurface", () => {
       screen.getByText("복사했습니다. 푸터의 '신고 · 기능 문의'에 붙여넣어 보내주세요."),
     ).toBeTruthy()
   })
+
+  it("offers aggregate-usage privacy controls in app settings", () => {
+    // Given: app settings are open.
+    renderOpenSurface()
+
+    // When: the user disables aggregate usage collection.
+    const preference = screen.getByRole("checkbox", { name: "익명 사용 집계 허용" })
+    fireEvent.click(preference)
+
+    // Then: the setting reports the disabled state without affecting dialog dismissal.
+    expect((preference as HTMLInputElement).checked).toBe(false)
+    expect(screen.getByRole("dialog", { name: "설정 · 정보" })).toBeTruthy()
+  })
 })

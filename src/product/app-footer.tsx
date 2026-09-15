@@ -1,4 +1,5 @@
 import { GearSix } from "@phosphor-icons/react"
+import type { RefObject } from "react"
 
 import packageJson from "../../package.json"
 import { KAKAO_CHAT_URL } from "../brand-links"
@@ -9,9 +10,10 @@ export const APP_VERSION = packageJson.version
 
 type AppFooterProps = {
   readonly onOpenHelp: () => void
+  readonly settingsButtonRef?: RefObject<HTMLButtonElement | null>
 }
 
-export function AppFooter({ onOpenHelp }: AppFooterProps) {
+export function AppFooter({ onOpenHelp, settingsButtonRef }: AppFooterProps) {
   return (
     <footer className="app-footer">
       <div className="app-footer__brand">
@@ -27,7 +29,12 @@ export function AppFooter({ onOpenHelp }: AppFooterProps) {
         </span>
       </div>
       <div className="app-footer__actions">
-        <button className="app-footer__pill" onClick={onOpenHelp} type="button">
+        <button
+          className="app-footer__pill"
+          onClick={onOpenHelp}
+          ref={settingsButtonRef}
+          type="button"
+        >
           <GearSix aria-hidden="true" size={14} /> 설정 · 정보
         </button>
         <a

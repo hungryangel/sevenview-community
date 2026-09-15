@@ -12,6 +12,7 @@ SevenView는 사진 바이트가 UI 경계를 넘어 서버로 흐르지 않도�
 | Services | `src/services` | 취소 가능한 순차 배치 분석과 실제 진행 이벤트 |
 | UI primitives | `src/ui` | 접근 가능한 상태·입력 컴포넌트 |
 | Product | `src/product` | 작업 상태와 화면 조합 |
+| Usage collector | `telemetry-server` | 고정 이벤트를 UTC 날짜별 합계로만 보관하는 별도 Worker와 D1 |
 
 Domain 함수는 DOM, React, MediaPipe를 알지 못합니다. 같은 출처의 로컬 모델 결과는 landmark
 adapter에서 `FaceAnchors`로 분석하면서 검증된 원본 점들도 optional `landmarkGeometry`에
@@ -46,6 +47,11 @@ batch item → workspace까지 정규화 좌표로 전달됩니다. 기준점이
 workspace는 `hidden`·`inert` 상태로 자원을 유지합니다.
 탭 전환은 자원 해제가 아니며 새로고침·탭 종료 뒤 상태 복원은 제공하지 않습니다.
 
+공식 빌드의 사용 집계는 사진 파이프라인과 분리됩니다. 브라우저는 허용된 세 이벤트 중 하나만
+별도 Worker의 `/events`로 보내며, Worker는 정확한 origin·content type·64-byte 상한·단일 키
+스키마를 통과한 요청만 D1의 `(day, event, count)`에 원자적으로 더합니다. 같은 요청에서 90일
+창 밖의 행을 지웁니다. 읽기 라우트는 없으며 운영 보고는 인증된 Wrangler D1 명령으로 실행합니다.
+
 ## 성능과 수명
 
 8GB 장비를 기준으로 사진을 병렬 분석하지 않고 한 장씩 처리합니다. 보이는 문서에서는
@@ -64,3 +70,5 @@ readiness와 분리되어 있고 reduced motion에서는 기록된 현재 단계
 - 외부: hosting origin, browser extensions, downloaded PNG destination
 - 금지: 환자 사진을 테스트 fixture, 로그, 텔레메트리, 외부 URL로 전달. 화면 표시용 로컬
   `blob:` URL은 현재 탭 안에서만 만들고 자원 수명 종료 시 해제
+- 제한된 외부 경계: 공식 사용 집계 Worker에는 고정 이벤트 이름만 전송. Cloudflare가 통신
+  과정의 IP 등 메타데이터를 처리할 수 있으나 Worker 로그와 D1에는 저장하지 않음

@@ -1,3 +1,6 @@
+import { useEffect } from "react"
+
+import { recordUsageEvent } from "../usage/usage-events"
 import { BrandFooter } from "./brand-footer"
 import { InstallationGuide } from "./installation-guide"
 import { ActionLink, ProductFigure, SectionIntro } from "./landing-primitives"
@@ -10,6 +13,8 @@ type CommunityLandingProps = { readonly repositoryUrl: string | null }
 const CONTACT_URL = "http://pf.kakao.com/_JDbbX/chat"
 
 export function CommunityLanding({ repositoryUrl }: CommunityLandingProps) {
+  useEffect(() => recordUsageEvent("landing_visit"), [])
+
   return (
     <div className="sv-site" data-clarity-mask="true">
       <a className="sv-skip" href="#main">

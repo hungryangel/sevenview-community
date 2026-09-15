@@ -12,6 +12,7 @@ import {
 import type { EyePrivacyRaster } from "../domain/comparison-eye-privacy"
 import { type ComparisonSession, isRenderableComparisonSlot } from "../domain/comparison-session"
 import { createDefaultSessionName } from "../domain/session-export"
+import { recordUsageEvent } from "../usage/usage-events"
 import { type ComparisonRenderModel, scaleComparisonInstruction } from "./comparison-render-model"
 
 type ComparisonExportDependencies = {
@@ -146,6 +147,7 @@ export function useComparisonExport(
         )
       }
       if (outcome === "stale") return
+      recordUsageEvent("export_complete")
       if (runtime.mountedRef.current) setExportCount((count) => count + 1)
       if (isCurrent()) {
         setExported(true)

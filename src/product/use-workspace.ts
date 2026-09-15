@@ -54,6 +54,7 @@ import {
 import { analyzeBrowserFiles } from "../services/analyze-local-files"
 import type { DropZoneState } from "../ui/drop-zone"
 import type { PrivacyState } from "../ui/privacy-status"
+import { recordUsageEvent } from "../usage/usage-events"
 import {
   adjustingActivity,
   doneActivity,
@@ -338,6 +339,8 @@ export function useWorkspace() {
       if (files.length === 0) {
         return
       }
+
+      recordUsageEvent("app_use")
 
       const nextPendingFiles = parsed.files.map((file) => ({
         file,
@@ -1104,6 +1107,7 @@ export function useWorkspace() {
       if (!mountedRef.current || workspaceGenerationRef.current !== exportedWorkspaceGeneration) {
         return
       }
+      recordUsageEvent("export_complete")
       if (result.contactSheetExported) {
         setExportEvents((current) => [...current, createContactSheetExportedEvent(sessionName)])
       }

@@ -2,11 +2,12 @@
 
 import { cleanup, fireEvent, render, screen } from "@testing-library/react"
 import { useEffect, useRef, useState } from "react"
-import { afterEach, describe, expect, it, vi } from "vitest"
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest"
 
 import { SevenViewApp } from "../src/product/sevenview-app"
 import type { WorkspaceStatus } from "../src/product/workspace"
 
+beforeEach(() => localStorage.clear())
 afterEach(cleanup)
 
 const mountCounts = { comparison: 0, sevenView: 0 }
@@ -85,6 +86,28 @@ function RichSevenView({ onStatusChange }: SurfaceProps) {
 }
 
 describe("SevenViewApp unified shell", () => {
+  it("shows the versioned welcome dialog, dismisses it independently, and reopens it from settings", () => {
+    // Given: this browser has not seen the current release.
+    render(
+      <SevenViewApp ComparisonSurface={StatefulComparison} SevenViewSurface={StatefulSevenView} />,
+    )
+    const welcome = screen.getByRole("dialog", {
+      name: "SevenView Community에 오신 것을 환영합니다",
+    })
+
+    // When: the visitor closes it, opens settings, and asks to see it again.
+    fireEvent.click(screen.getByRole("button", { name: "환영 안내 닫기" }))
+    expect(screen.queryByRole("dialog", { name: /SevenView Community에 오신/ })).toBeNull()
+    fireEvent.click(screen.getByRole("button", { name: "설정 · 정보" }))
+    fireEvent.click(screen.getByRole("button", { name: "환영 안내 다시 보기" }))
+
+    // Then: the native welcome surface returns without changing usage collection.
+    expect(welcome.isConnected).toBe(false)
+    expect(screen.getByRole("dialog", { name: /SevenView Community에 오신/ })).toBeTruthy()
+    expect(localStorage.getItem("sevenview:usage-enabled")).toBeNull()
+    fireEvent.click(screen.getByRole("button", { name: "환영 안내 닫기" }))
+    expect(document.activeElement).toBe(screen.getByRole("button", { name: "설정 · 정보" }))
+  })
   it("opens 7뷰 by default with one shared chrome and unique owned ids", () => {
     render(
       <SevenViewApp ComparisonSurface={StatefulComparison} SevenViewSurface={StatefulSevenView} />,

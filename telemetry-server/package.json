@@ -1,0 +1,23 @@
+{
+  "name": "sevenview-usage-collector",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "bash test/integration.sh",
+    "test:csp": "node test/content-security-policy.mjs",
+    "test:production-config": "node test/production-config.mjs",
+    "typecheck": "tsc --noEmit",
+    "types": "wrangler types",
+    "report:preview": "wrangler d1 execute sevenview-usage-preview --remote --command \"SELECT day, event, count FROM daily_counts ORDER BY day DESC, event\"",
+    "report:production": "wrangler d1 execute sevenview-usage --remote --config wrangler.production.jsonc --command \"SELECT day, event, count FROM daily_counts ORDER BY day DESC, event\""
+  },
+  "dependencies": {
+    "zod": "4.5.4"
+  },
+  "devDependencies": {
+    "typescript": "7.0.2",
+    "wrangler": "4.131.2"
+  },
+  "packageManager": "pnpm@11.19.0"
+}

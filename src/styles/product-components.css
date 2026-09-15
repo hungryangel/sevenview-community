@@ -1363,6 +1363,157 @@
   font-size: 0.75rem;
 }
 
+.help-surface .usage-preference {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.help-surface .usage-preference label {
+  align-items: center;
+  cursor: pointer;
+  display: inline-flex;
+  gap: var(--space-2);
+  min-block-size: 44px;
+  width: fit-content;
+}
+
+.help-surface .usage-preference input {
+  accent-color: var(--accent-primary);
+}
+
+.help-surface .usage-preference p {
+  margin: 0;
+}
+
+.welcome-dialog {
+  background: var(--surface-panel);
+  border: 1px solid var(--border-standard);
+  border-radius: var(--radius-panel);
+  box-sizing: border-box;
+  color: var(--text-primary);
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  inline-size: min(100% - var(--space-8), 34rem);
+  margin: auto;
+  max-block-size: min(92dvh, 48rem);
+  overflow: hidden;
+  padding: 0;
+}
+
+.welcome-dialog[open] {
+  display: grid;
+}
+
+.welcome-dialog::backdrop {
+  background: var(--surface-scrim);
+}
+
+.welcome-dialog__header,
+.welcome-dialog__actions {
+  align-items: center;
+  display: flex;
+  gap: var(--space-3);
+  justify-content: space-between;
+  padding: var(--space-4) var(--space-5);
+}
+
+.welcome-dialog__header {
+  border-block-end: 1px solid var(--border-standard);
+}
+
+.welcome-dialog__header p,
+.welcome-dialog__body p {
+  margin: 0;
+}
+
+.welcome-dialog__header p {
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.welcome-dialog__header button {
+  background: transparent;
+  border: 1px solid var(--border-standard);
+  border-radius: var(--radius-control);
+  color: var(--text-secondary);
+  cursor: pointer;
+  display: grid;
+  min-block-size: 36px;
+  min-inline-size: 36px;
+  place-items: center;
+}
+
+.welcome-dialog__body {
+  display: grid;
+  gap: var(--space-4);
+  overflow-y: auto;
+  padding: var(--space-6) var(--space-5);
+}
+
+.welcome-dialog__body h2 {
+  font-size: clamp(1.5rem, 5vw, 2rem);
+  line-height: 1.2;
+  word-break: keep-all;
+}
+
+.welcome-dialog__body h3 {
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  letter-spacing: 0.02em;
+  margin-block-end: var(--space-2);
+}
+
+.welcome-dialog__body p,
+.welcome-dialog__body li {
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  line-height: 1.65;
+  word-break: keep-all;
+}
+
+.welcome-dialog__body .welcome-dialog__thanks {
+  color: var(--text-primary);
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.welcome-dialog__body ul {
+  display: grid;
+  gap: var(--space-2);
+  margin: 0;
+  padding-inline-start: var(--space-5);
+}
+
+.welcome-dialog__actions {
+  border-block-start: 1px solid var(--border-standard);
+  justify-content: flex-end;
+}
+
+.welcome-dialog__privacy {
+  background: transparent;
+  border: 0;
+  color: var(--text-secondary);
+  cursor: pointer;
+  font: inherit;
+  min-block-size: 44px;
+  padding-inline: var(--space-2);
+  text-decoration: underline;
+  text-underline-offset: var(--space-1);
+}
+
+@media (max-width: 480px) {
+  .welcome-dialog__actions {
+    align-items: stretch;
+    flex-direction: column-reverse;
+  }
+
+  .welcome-dialog__actions > * {
+    justify-content: center;
+    width: 100%;
+  }
+}
+
 .sequence-rail__tray {
   border-block-start: 1px solid var(--border-standard);
   display: grid;
@@ -2837,5 +2988,4 @@
     flex: 1;
     padding-inline: var(--space-2);
   }
-
 }

@@ -1,0 +1,24 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "sevenview-usage",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-09-15",
+  "vars": {
+    "ALLOWED_ORIGIN": "https://sevenview.velnoc.com"
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "sevenview-usage",
+      "database_id": "50c49f36-9d4f-477c-87b7-2083c66e17ba",
+      "migrations_dir": "migrations"
+    }
+  ],
+  "observability": {
+    "enabled": false,
+    "logs": {
+      "enabled": false,
+      "invocation_logs": false
+    }
+  }
+}

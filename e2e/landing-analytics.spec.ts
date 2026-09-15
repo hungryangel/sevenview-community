@@ -1,4 +1,5 @@
 import { expect, test } from "@playwright/test"
+import { dismissWelcomeIfPresent } from "./welcome-helpers"
 
 test("official introduction opt-in sends Clarity without enabling it in the app", async ({
   page,
@@ -27,6 +28,7 @@ test("official introduction opt-in sends Clarity without enabling it in the app"
     (await context.cookies()).filter((cookie) => ["_clck", "_clsk"].includes(cookie.name)),
   ).toEqual([])
   await page.goto("/app")
+  await dismissWelcomeIfPresent(page)
   clarityRequests.length = 0
   await expect(page.getByRole("heading", { name: "사진 접수" })).toBeVisible()
   expect(await page.locator("#sv-clarity").count()).toBe(0)

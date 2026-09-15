@@ -1,5 +1,21 @@
 # SevenView Community · VELNOC design contract
 
+## 0.2.0 · welcome and aggregate-usage controls
+
+The first-visit/new-version welcome uses the app's existing native-dialog material,
+button primitive, spacing tokens and focus behavior. It is content-led rather than a
+new visual concept: one release eyebrow, a gratitude lead, two compact information
+sections, a quiet privacy action and one primary close action. The same surface is
+reopened from Settings · Info. At 375px actions stack; at wider sizes they align to
+the end. Escape, initial focus and focus return remain native dialog behavior.
+
+UsagePreference is a reusable checkbox-and-disclosure primitive used in the light
+landing footer and dark app settings. It inherits each surface's existing tokens;
+no new color, radius or motion tokens are introduced. The preference is separate
+from the landing-only Clarity details control, defaults on, never gates app use or
+welcome dismissal, and has a minimum 44px label target. Browser DNT/GPC override
+the local preference.
+
 ## Cloudflare release · footer and privacy controls
 
 Footer typography correction: contact, copyright and navigation explicitly use

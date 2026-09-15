@@ -1,7 +1,9 @@
 import { mkdirSync, writeFileSync } from "node:fs"
 import { join } from "node:path"
 import { expect, test } from "@playwright/test"
+import { dismissWelcomeIfPresent } from "./welcome-helpers"
 
+// biome-ignore lint/complexity/useLiteralKeys: strict Node env typing requires index access.
 const evidenceDirectory = process.env["SEVENVIEW_EVIDENCE_DIR"] ?? "test-results/community"
 
 test("landing stays lightweight and opens the ungated app", async ({ page }) => {
@@ -32,6 +34,7 @@ test("landing stays lightweight and opens the ungated app", async ({ page }) => 
 
   await page.getByRole("link", { name: "무료 앱 시작" }).click()
   await expect(page).toHaveURL(/\/app$/)
+  await dismissWelcomeIfPresent(page)
   await expect(page.getByRole("heading", { name: "사진 접수" })).toBeVisible()
   await expect(page.getByText(/초대 코드/)).toHaveCount(0)
   expect(requests.filter((request) => request.method !== "GET")).toEqual([])
@@ -76,6 +79,7 @@ for (const width of [375, 768, 1280] as const) {
 
 test("direct app reload and unknown route remain navigable", async ({ page }) => {
   await page.goto("/app")
+  await dismissWelcomeIfPresent(page)
   await page.reload()
   await expect(page.getByRole("heading", { name: "사진 접수" })).toBeVisible()
 

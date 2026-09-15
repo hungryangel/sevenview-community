@@ -7,7 +7,7 @@ assert.match(landing, /건강한 삶의 가능성을,/)
 assert.match(landing, /https:\/\/www.clarity.ms/)
 assert.match(landing, /rel="canonical" href="https:\/\/sevenview.velnoc.com\/"/)
 assert.match(app, /rel="canonical" href="https:\/\/sevenview.velnoc.com\/app"/)
-assert.match(app, /connect-src &#39;self&#39;;/)
+assert.match(app, /connect-src &#39;self&#39;(?: https:\/\/[a-z0-9.-]+)?;/)
 assert.doesNotMatch(app, /clarity\.ms/)
 assert.match(app, /noindex, follow/)
 let count = 0
@@ -27,4 +27,4 @@ async function inspect(directory) {
 }
 await inspect("dist")
 assert(count <= 20000)
-console.log(`PASS: static-only hosting, SEO, app privacy CSP; ${count} files within Pages limits`)
+console.log(`PASS: static Pages bundle, SEO, app privacy CSP; ${count} files within Pages limits`)

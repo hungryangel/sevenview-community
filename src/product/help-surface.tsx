@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react"
 
 import { STANDARD_SEVEN_VIEW_DRAFT } from "../domain/protocol-preset"
 import { Button } from "../ui/button"
+import { UsagePreference } from "../usage/usage-preference"
 import { APP_VERSION } from "./app-footer"
 import { GUIDE_COLORS, type GuideColorId } from "./guide-color"
 import { GUIDE_WIDTHS, type GuideWidthId } from "./guide-width"
@@ -16,6 +17,7 @@ type HelpSurfaceProps = {
   readonly onChangeGuideColor: (color: GuideColorId) => void
   readonly onChangeGuideWidth: (width: GuideWidthId) => void
   readonly onClose: () => void
+  readonly onOpenWelcome?: () => void
   readonly open: boolean
   readonly reviewCount: number
   readonly sessionStartedAt: number
@@ -39,6 +41,7 @@ export function HelpSurface({
   onChangeGuideColor,
   onChangeGuideWidth,
   onClose,
+  onOpenWelcome,
   open,
   reviewCount,
   sessionStartedAt,
@@ -166,6 +169,16 @@ export function HelpSurface({
           ))}
         </ul>
         <p>먼저 필요한 기능이 있으면 푸터의 '신고 · 기능 문의'로 알려주세요.</p>
+        {onOpenWelcome === undefined ? null : (
+          <Button onClick={onOpenWelcome} variant="quiet">
+            환영 안내 다시 보기
+          </Button>
+        )}
+      </section>
+
+      <section aria-labelledby="help-privacy-title" className="help-surface__section">
+        <h3 id="help-privacy-title">개인정보 · 사용 집계</h3>
+        <UsagePreference />
       </section>
 
       <section aria-labelledby="help-summary-title" className="help-surface__section">

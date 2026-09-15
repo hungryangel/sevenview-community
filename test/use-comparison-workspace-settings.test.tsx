@@ -10,7 +10,13 @@ import {
 } from "../src/product/use-comparison-workspace"
 import { dependencies, ready, source } from "./support/comparison-workspace-fixtures"
 
-afterEach(cleanup)
+const { recordUsageEvent } = vi.hoisted(() => ({ recordUsageEvent: vi.fn() }))
+vi.mock("../src/usage/usage-events", () => ({ recordUsageEvent }))
+
+afterEach(() => {
+  cleanup()
+  recordUsageEvent.mockReset()
+})
 
 async function readyWorkspace(
   exportFiles: NonNullable<ComparisonWorkspaceDependencies["exportFiles"]>,
@@ -37,6 +43,17 @@ async function readyWorkspace(
 }
 
 describe("comparison workspace export settings", () => {
+  it("does not count a rejected non-image selection as app use", () => {
+    // Given: a comparison workspace and a non-image file.
+    const { result } = renderHook(() => useComparisonWorkspace(dependencies(async () => [])))
+
+    // When: the file reaches the existing selection boundary.
+    act(() => result.current.selectFile("before", new File(["text"], "note.txt")))
+
+    // Then: it is not counted as an accepted photo.
+    expect(recordUsageEvent).not.toHaveBeenCalledWith("app_use")
+  })
+
   it("creates date-based defaults and restores fresh metadata when reset", () => {
     // Given an initialized workspace with edited export metadata and a manual angle.
     let currentTime = new Date(2026, 8, 6, 10, 11)
@@ -85,6 +102,8 @@ describe("comparison workspace export settings", () => {
     expect(result.current.exported).toBe(false)
     expect(result.current.exportMessage).toBeNull()
     expect(result.current.renderModel?.kind).toBe("ready")
+    expect(recordUsageEvent).toHaveBeenCalledWith("app_use")
+    expect(recordUsageEvent).toHaveBeenCalledWith("export_complete")
   })
 
   it("passes selected export settings without changing source identities", async () => {
@@ -137,6 +156,7 @@ describe("comparison workspace export settings", () => {
     expect(result.current.exportCount).toBe(0)
     expect(result.current.exported).toBe(false)
     expect(result.current.exportMessage).toBeNull()
+    expect(recordUsageEvent).not.toHaveBeenCalledWith("export_complete")
   })
 
   it("keeps settings accessible but refuses export when every output is unchecked", async () => {

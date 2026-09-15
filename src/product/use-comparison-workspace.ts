@@ -9,8 +9,10 @@ import {
 import type { EyePrivacyRaster } from "../domain/comparison-eye-privacy"
 import type { ComparisonReferencePair } from "../domain/comparison-reference-pair"
 import type { ComparisonSlot } from "../domain/comparison-session"
+import { parseImageFiles } from "../domain/files"
 import { createDefaultSessionName } from "../domain/session-export"
 import { analyzeBrowserFiles } from "../services/analyze-local-files"
+import { recordUsageEvent } from "../usage/usage-events"
 import type { ReadyComparisonSlot } from "./comparison-preview"
 import {
   buildComparisonRenderModel,
@@ -135,6 +137,7 @@ export function useComparisonWorkspace(
     (side: ComparisonSide, file: File) => {
       if (externalBusy) return
       lifecycle.selectFile(side, file)
+      if (parseImageFiles([file]).kind !== "rejected") recordUsageEvent("app_use")
       analysis.resetPresentation()
       alignment.invalidateSide(side)
     },

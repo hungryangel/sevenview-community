@@ -1,7 +1,14 @@
 import { lstat, readdir, readFile, realpath } from "node:fs/promises"
 import { relative, resolve, sep } from "node:path"
 
-const EXCLUDED_ROOTS = new Set([".git", "node_modules", "playwright-report", "test-results"])
+const EXCLUDED_DIRECTORIES = new Set([
+  ".git",
+  ".wrangler",
+  "coverage",
+  "node_modules",
+  "playwright-report",
+  "test-results",
+])
 const APPROVED_BINARY = new Set([
   ...["public", "dist"].flatMap((root) => [
     `${root}/brand/velnoc-wordmark.png`,
@@ -34,7 +41,6 @@ const FORBIDDEN_PATH_PARTS = [
   ["src", "beta"].join("/"),
   ["change", "measurement"].join("-"),
   ["regional", "contour"].join("-"),
-  ["usage", "events"].join("-"),
   ["export", "survey"].join("-"),
 ]
 const FORBIDDEN_CONTENT = [
@@ -45,7 +51,7 @@ const FORBIDDEN_CONTENT = [
 async function walk(root, directory = root) {
   const files = []
   for (const entry of await readdir(directory, { withFileTypes: true })) {
-    if (directory === root && EXCLUDED_ROOTS.has(entry.name)) continue
+    if (entry.isDirectory() && EXCLUDED_DIRECTORIES.has(entry.name)) continue
     const absolute = resolve(directory, entry.name)
     if (entry.isDirectory()) files.push(...(await walk(root, absolute)))
     else files.push(absolute)
@@ -56,7 +62,7 @@ async function walk(root, directory = root) {
 export async function inspectCommunityRelease(root = process.cwd()) {
   const canonicalRoot = await realpath(root)
   const findings = []
-  if (process.env["VITE_BETA_TELEMETRY_ENDPOINT"] !== undefined) {
+  if (process.env.VITE_BETA_TELEMETRY_ENDPOINT !== undefined) {
     findings.push({ code: "forbidden-environment", path: "VITE_BETA_TELEMETRY_ENDPOINT" })
   }
   for (const absolute of await walk(canonicalRoot)) {

@@ -6,9 +6,13 @@ import { afterEach, expect, it, vi } from "vitest"
 import { photoId } from "../src/domain/types"
 import { useWorkspace } from "../src/product/use-workspace"
 
-const { exportWorkspacePngs } = vi.hoisted(() => ({ exportWorkspacePngs: vi.fn() }))
+const { exportWorkspacePngs, recordUsageEvent } = vi.hoisted(() => ({
+  exportWorkspacePngs: vi.fn(),
+  recordUsageEvent: vi.fn(),
+}))
 
 vi.mock("../src/adapters/contact-sheet-canvas", () => ({ exportWorkspacePngs }))
+vi.mock("../src/usage/usage-events", () => ({ recordUsageEvent }))
 vi.mock("../src/domain/exif-capture-time", () => ({
   cameraLabel: () => "테스트 카메라",
   readExifSummary: async () => ({}),
@@ -36,6 +40,7 @@ vi.mock("../src/services/analyze-local-files", () => ({
 afterEach(() => {
   cleanup()
   exportWorkspacePngs.mockReset()
+  recordUsageEvent.mockReset()
 })
 
 async function reviewedWorkspace() {
@@ -67,6 +72,7 @@ it("treats selected but not yet analyzed files as unexported work", async () => 
   expect(hook.result.current.phase).toBe("awaitingAnalysis")
   expect(hook.result.current.exportedCurrentResult).toBe(false)
   expect(hook.result.current.hasUnexportedChanges).toBe(true)
+  expect(recordUsageEvent).toHaveBeenCalledWith("app_use")
 })
 
 it("marks a successful export current under React StrictMode effect rehearsal", async () => {
@@ -82,6 +88,7 @@ it("marks a successful export current under React StrictMode effect rehearsal", 
 
   expect(hook.result.current.exportedThisSet).toBe(true)
   expect(hook.result.current.exportedCurrentResult).toBe(true)
+  expect(recordUsageEvent).toHaveBeenCalledWith("export_complete")
 })
 
 it("tracks whether the current reviewed result has unexported changes", async () => {
@@ -202,4 +209,5 @@ it("does not mark a failed export as successful", async () => {
   expect(hook.result.current.exportedThisSet).toBe(false)
   expect(hook.result.current.exportedCurrentResult).toBe(false)
   expect(hook.result.current.hasUnexportedChanges).toBe(true)
+  expect(recordUsageEvent).not.toHaveBeenCalledWith("export_complete")
 })

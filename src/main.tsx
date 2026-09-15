@@ -38,7 +38,7 @@ const pathname = window.location.pathname.replace(/\/$/, "") || "/"
 
 function CommunityRoute() {
   switch (pathname) {
-    case "/": return <CommunityLanding repositoryUrl={null} />
+    case "/": return <CommunityLanding repositoryUrl="https://github.com/hungryangel/sevenview-community" />
     case "/app": return <React.Suspense fallback={<p className="community-loading">앱을 불러오는 중입니다.</p>}><CommunityApp /></React.Suspense>
     default: return <main className="community-not-found"><p className="community-eyebrow">404</p><h1>페이지를 찾을 수 없습니다.</h1><a className="community-button" href="/">소개로 돌아가기</a></main>
   }

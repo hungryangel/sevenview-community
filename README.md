@@ -31,6 +31,10 @@ pnpm verify:community
 pnpm exec playwright test --workers=1
 ```
 
+## 소스 코드
+
+공개 저장소: [hungryangel/sevenview-community](https://github.com/hungryangel/sevenview-community)
+
 ## 개인정보
 
 선택한 사진과 분석 결과는 앱 서버로 전송되지 않습니다. 모델과 WASM은 같은 출처에서 내려받아 브라우저 안에서 실행됩니다. 호스팅 사업자는 일반적인 GET 접속 기록을 보유할 수 있습니다. 내려받은 결과에는 사진이 포함되므로 환자 동의와 기관 보관 정책에 따라 관리하세요. 자세한 내용은 [개인정보 안내](docs/PRIVACY.md)를 확인하세요.

@@ -6,7 +6,7 @@ it("exposes crawler-readable share metadata and resolvable icons without JavaScr
   const html = readFileSync("index.html", "utf8")
   const document = new DOMParser().parseFromString(html, "text/html")
   const image = document.querySelector('meta[property="og:image"]')?.getAttribute("content")
-  expect(image).toBe("https://sevenview-community.vercel.app/brand/sevenview-social.png")
+  expect(image).toBe("https://sevenview.velnoc.com/brand/sevenview-social.png")
   expect(document.querySelector('meta[name="twitter:card"]')?.getAttribute("content")).toBe(
     "summary_large_image",
   )

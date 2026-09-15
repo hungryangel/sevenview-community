@@ -9,9 +9,9 @@ afterEach(cleanup)
 describe("VELNOC Community guide", () => {
   it("connects the product to VELNOC and exposes the full getting-started journey", () => {
     const { container } = render(<CommunityLanding repositoryUrl={repositoryUrl} />)
-    expect(screen.getByRole("link", { name: "VELNOC 홈페이지" }).getAttribute("href")).toBe(
-      "https://velnoc.com/",
-    )
+    const homeLinks = screen.getAllByRole("link", { name: "VELNOC 홈페이지" })
+    expect(homeLinks).toHaveLength(2)
+    for (const link of homeLinks) expect(link.getAttribute("href")).toBe("https://velnoc.com/")
     for (const anchor of container.querySelectorAll<HTMLAnchorElement>('a[href^="#"]')) {
       expect(document.getElementById(anchor.hash.slice(1))).not.toBeNull()
     }

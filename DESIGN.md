@@ -1,5 +1,18 @@
 # SevenView Community · VELNOC design contract
 
+## Cloudflare release · footer and privacy controls
+
+Footer reuses VELNOC's mint #def2f7 field, original navy wordmark (320px maximum),
+24px two-line mission, email and English descriptor. 80px top/divider spacing,
+40px grid gap; desktop 5:4:3 columns, stacked below 980px. Bottom links wrap
+with 44px targets; GitHub/license/privacy remain a subordinate resource row.
+Copy: 건강한 삶의 가능성을, / 기술로 넓힙니다.; hello@velnoc.com;
+Health & wellness technology; © 2026 VELNOC. Reference establishes tone/copy;
+responsive geometry comes from the existing VELNOC footer source, not a fixed screenshot.
+BrandFooter and AnalyticsPreference are separate reusable primitives. The optional
+analytics disclosure is a native details element with keyboard-operable button,
+visible status, off by default and no popup. No analytics in the patient workspace.
+
 ## Sharing assets · 2026-09-15
 
 Social card: 1200×630, original VELNOC navy wordmark, existing actual workspace

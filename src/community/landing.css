@@ -110,30 +110,6 @@
 .sv-service-list li + li {
   margin-top: var(--b-12);
 }
-.sv-footer {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: var(--b-32);
-  padding-block: var(--b-40);
-  border-top: 1px solid var(--b-line);
-  font-size: var(--b-14);
-}
-.sv-footer p {
-  margin-top: var(--b-8);
-  color: var(--b-muted);
-}
-.sv-footer nav {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--b-24);
-}
-.sv-footer nav a {
-  min-height: var(--b-44);
-  display: inline-flex;
-  align-items: center;
-  text-underline-offset: var(--b-4);
-}
 @media (max-width: 767px) {
   .sv-header nav {
     justify-content: space-between;

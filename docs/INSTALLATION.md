@@ -75,7 +75,8 @@ Deploy the complete `dist/` directory to an HTTPS static host:
 
 - Serve it at the domain root. The current `/app` route and asset paths assume `/`;
   a subdirectory installation needs explicit path changes and separate testing.
-- Rewrite application navigation such as `/app` to `/index.html`.
+- Serve `/app` from the generated `/app.html`, not the introduction HTML.
+  Keep the generated `404.html` so unknown routes and missing assets return 404.
 - Serve real `/assets/`, `/models/`, `/wasm/`, `/fonts/`, `/brand/` and `/examples/`
   files without rewriting their contents to HTML. Missing assets must not return
   an HTML page with a misleading 200 status.
@@ -90,6 +91,23 @@ Deploy the complete `dist/` directory to an HTTPS static host:
 For internal hospital hosting, network access controls, backups and operational
 security need a separate deployment review. The Community app does not supply
 an ERP, user management system, secure patient archive or compliance certification.
+
+### Cloudflare Pages (static only)
+
+The official deployment uses Cloudflare Pages and `sevenview.velnoc.com`.
+Build locally with `pnpm build`, then deploy the complete `dist/` directory
+using `wrangler pages deploy dist --project-name YOUR_PROJECT --branch main`.
+Create your own Pages project first. Do not deploy a fork into VELNOC's project.
+The checked-in `wrangler.jsonc` describes the official static build output;
+change its project name for your own deployment. There are no Functions,
+Workers, databases, R2 buckets or paid image transformations. Static asset
+requests are currently free and unlimited; build/file limits still apply.
+See [Cloudflare pricing](https://developers.cloudflare.com/pages/functions/pricing/).
+Attach the custom domain in Pages before creating its DNS record.
+
+The build pre-renders the introduction for crawlers and creates distinct app
+HTML with its restrictive CSP. The optional Clarity loader only accepts the
+official introduction hostname after explicit per-visit opt-in. See [Privacy](PRIVACY.md).
 
 ## 6. Troubleshooting / 자주 막히는 부분
 

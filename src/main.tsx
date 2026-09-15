@@ -1,5 +1,5 @@
 import React from "react"
-import { createRoot } from "react-dom/client"
+import { createRoot, hydrateRoot } from "react-dom/client"
 
 import { CommunityLanding } from "./community/community-landing"
 import "./styles/tokens.css"
@@ -20,7 +20,9 @@ import "./styles/community.css"
 
 class RootElementMissingError extends Error {
   readonly name = "RootElementMissingError"
-  constructor() { super("The #root application mount point is missing") }
+  constructor() {
+    super("The #root application mount point is missing")
+  }
 }
 
 if (import.meta.env.DEV && import.meta.env.VITE_DISABLE_REACT_DEVTOOLS !== "1") {
@@ -38,10 +40,31 @@ const pathname = window.location.pathname.replace(/\/$/, "") || "/"
 
 function CommunityRoute() {
   switch (pathname) {
-    case "/": return <CommunityLanding repositoryUrl="https://github.com/hungryangel/sevenview-community" />
-    case "/app": return <React.Suspense fallback={<p className="community-loading">앱을 불러오는 중입니다.</p>}><CommunityApp /></React.Suspense>
-    default: return <main className="community-not-found"><p className="community-eyebrow">404</p><h1>페이지를 찾을 수 없습니다.</h1><a className="community-button" href="/">소개로 돌아가기</a></main>
+    case "/":
+      return <CommunityLanding repositoryUrl="https://github.com/hungryangel/sevenview-community" />
+    case "/app":
+      return (
+        <React.Suspense fallback={<p className="community-loading">앱을 불러오는 중입니다.</p>}>
+          <CommunityApp />
+        </React.Suspense>
+      )
+    default:
+      return (
+        <main className="community-not-found">
+          <p className="community-eyebrow">404</p>
+          <h1>페이지를 찾을 수 없습니다.</h1>
+          <a className="community-button" href="/">
+            소개로 돌아가기
+          </a>
+        </main>
+      )
   }
 }
 
-createRoot(rootElement).render(<React.StrictMode><CommunityRoute /></React.StrictMode>)
+const route = (
+  <React.StrictMode>
+    <CommunityRoute />
+  </React.StrictMode>
+)
+if (rootElement.hasChildNodes()) hydrateRoot(rootElement, route)
+else createRoot(rootElement).render(route)

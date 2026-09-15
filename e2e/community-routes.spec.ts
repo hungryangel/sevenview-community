@@ -62,6 +62,15 @@ for (const width of [375, 768, 1280] as const) {
     )
     mkdirSync(evidenceDirectory, { recursive: true })
     await page.screenshot({ fullPage: true, path: join(evidenceDirectory, `task-6-${width}.png`) })
+    await page
+      .locator(".sv-brand-footer")
+      .screenshot({ path: join(evidenceDirectory, `footer-${width}.png`) })
+    await page.getByText("소개 페이지 사용 분석 · 꺼짐", { exact: true }).click()
+    await expect(page.getByRole("button", { name: "이번 소개 페이지 분석 허용" })).toBeVisible()
+    await page
+      .locator(".sv-brand-footer")
+      .screenshot({ path: join(evidenceDirectory, `footer-expanded-${width}.png`) })
+    expect(await page.locator("#sv-clarity").count()).toBe(0)
   })
 }
 

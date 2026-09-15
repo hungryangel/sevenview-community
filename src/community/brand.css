@@ -37,6 +37,7 @@
   --b-128: 128px;
   --b-anchor: 144px;
   --b-max: 1440px;
+  --b-wordmark: 320px;
   --b-pad: var(--b-20);
   --b-space: var(--b-80);
   --b-body: var(--b-16);

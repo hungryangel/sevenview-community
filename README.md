@@ -6,8 +6,8 @@ A free, local-first photo workspace by [VELNOC](https://velnoc.com/).
 Arrange facial photographs into a seven-view set, review AI-assisted crops and
 alignment, and export visual comparisons—all inside your browser.
 
-[Use the free web app](https://sevenview-community.vercel.app/app) ·
-[Product website](https://sevenview-community.vercel.app/) ·
+[Use the free web app](https://sevenview.velnoc.com/app) ·
+[Product website](https://sevenview.velnoc.com/) ·
 [한국어 안내](README.ko.md) · [Installation](docs/INSTALLATION.md) ·
 [User guide](docs/USER_GUIDE.md) · [Paid customization](http://pf.kakao.com/_JDbbX/chat)
 
@@ -72,7 +72,7 @@ introduction is at `/`; the workspace is at `/app`.
 
 For platform notes, production builds, static hosting and troubleshooting, read
 the [complete installation guide](docs/INSTALLATION.md). Prefer no installation?
-Open the [public Community app](https://sevenview-community.vercel.app/app).
+Open the [public Community app](https://sevenview.velnoc.com/app).
 It is separate from the invitation-only beta and requires no invitation code.
 
 ## First use
@@ -112,6 +112,10 @@ can retain ordinary page/asset request logs. Local aggregate usage counts are
 not a cloud patient record. Exported files contain photos; consent, retention and
 sharing decisions remain with the operator. See [Privacy](docs/PRIVACY.md) and
 [Model limitations](docs/MODEL_CARD.md).
+
+The introduction offers optional, per-visit Clarity analytics (off by default).
+The photo app and exported files never load Clarity. The official website is
+hosted as static assets on Cloudflare Pages, without metered server functions.
 
 ## License and hospital customization
 

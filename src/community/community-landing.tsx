@@ -1,3 +1,4 @@
+import { BrandFooter } from "./brand-footer"
 import { InstallationGuide } from "./installation-guide"
 import { ActionLink, ProductFigure, SectionIntro } from "./landing-primitives"
 import { UsageGuide } from "./usage-guide"
@@ -10,7 +11,7 @@ const CONTACT_URL = "http://pf.kakao.com/_JDbbX/chat"
 
 export function CommunityLanding({ repositoryUrl }: CommunityLandingProps) {
   return (
-    <div className="sv-site">
+    <div className="sv-site" data-clarity-mask="true">
       <a className="sv-skip" href="#main">
         본문으로 건너뛰기
       </a>
@@ -32,7 +33,12 @@ export function CommunityLanding({ repositoryUrl }: CommunityLandingProps) {
           </a>
         </nav>
       </header>
-      <main id="main">
+      <main id="main" itemScope itemType="https://schema.org/SoftwareApplication">
+        <meta itemProp="name" content="SevenView Community" />
+        <meta itemProp="applicationCategory" content="MultimediaApplication" />
+        <meta itemProp="operatingSystem" content="Web browser" />
+        <meta itemProp="url" content="https://sevenview.velnoc.com/" />
+        <meta itemProp="license" content="https://www.gnu.org/licenses/agpl-3.0.html" />
         <section className="sv-hero">
           <div className="sv-container">
             <p className="sv-eyebrow">VELNOC / SEVENVIEW COMMUNITY</p>
@@ -161,6 +167,10 @@ export function CommunityLanding({ repositoryUrl }: CommunityLandingProps) {
                 수 있습니다.
               </p>
               <p>
+                소개 페이지의 선택형 사용 분석은 하단에서 직접 켤 수 있습니다. 사진을 다루는 앱에는
+                적용하지 않습니다.
+              </p>
+              <p>
                 다운로드한 파일에는 사진이 포함됩니다. 눈 모자이크를 적용하더라도 완전한 익명화를
                 보장하지 않으므로, 공유 전에 결과와 동의 범위를 확인하세요.
               </p>
@@ -195,21 +205,7 @@ export function CommunityLanding({ repositoryUrl }: CommunityLandingProps) {
           </div>
         </section>
       </main>
-      <footer className="sv-footer sv-container">
-        <div>
-          <strong>SevenView Community</strong>
-          <p>의료 현장의 반복 작업을 줄이는 VELNOC의 오픈소스 도구.</p>
-        </div>
-        <nav aria-label="하단 메뉴">
-          <a href="https://velnoc.com/">VELNOC</a>
-          {repositoryUrl === null ? null : (
-            <>
-              <a href={repositoryUrl}>GitHub · English</a>
-              <a href={`${repositoryUrl}/blob/main/LICENSE`}>AGPL-3.0-only</a>
-            </>
-          )}
-        </nav>
-      </footer>
+      <BrandFooter repositoryUrl={repositoryUrl} />
     </div>
   )
 }

@@ -10,3 +10,4 @@ test-results/
 .react-doctor-report.json
 .omo/
 .vercel/
+.wrangler/

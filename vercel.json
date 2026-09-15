@@ -4,7 +4,7 @@
   "buildCommand": "pnpm build",
   "outputDirectory": "dist",
   "installCommand": "pnpm install --frozen-lockfile",
-  "rewrites": [{ "source": "/app", "destination": "/index.html" }],
+  "rewrites": [{ "source": "/app", "destination": "/app.html" }],
   "headers": [
     {
       "source": "/(.*)",

@@ -13,7 +13,7 @@ describe("VELNOC Community guide", () => {
       "https://velnoc.com/",
     )
     for (const anchor of container.querySelectorAll<HTMLAnchorElement>('a[href^="#"]')) {
-      expect(container.querySelector(anchor.hash)).not.toBeNull()
+      expect(document.getElementById(anchor.hash.slice(1))).not.toBeNull()
     }
     expect(
       screen.getByRole("heading", { name: "설치 없이 시작하거나, 직접 설치하세요." }),

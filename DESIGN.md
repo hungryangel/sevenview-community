@@ -1,4 +1,57 @@
-# SevenView Community Design
+# SevenView Community · VELNOC design contract
+
+## 2026-09-15 · Landing redesign (supersedes landing rules below)
+
+The landing is a VELNOC product site. Port the approved VELNOC website's
+editorial system (sections 13–16): white paper, pale blue sections, navy
+actions, large left-aligned Korean type and real product screens. Glass is
+limited to navigation/actions. `/app` retains its existing design and behavior.
+All new marketing styles are scoped to `.sv-site`.
+
+Reading order: purpose → workspace → features → usage → installation → privacy
+→ paid customization. Essential content remains visible, without accordions.
+
+Tokens in `src/community/brand.css`: paper #fff, ink #262c2e, muted #5d6d73,
+line #e7edee, sage #f1f4f4, mint #def2f7, sand #faf8ed, deep #01202c,
+action-hover #183e4c, focus/accent #006886. Header uses white 90%, 20px blur,
+white inset highlight and navy 6% shadow; sections remain opaque.
+Pretendard Variable is self-hosted under OFL, never fetched from a font CDN.
+Type: hero clamp(40px,7vw,96px), heading clamp(32px,4vw,56px), subheading
+24px, body 16/18px, caption 14px, eyebrow 12px. Weights 400/450/600/650.
+Korean keep-all, body line-height 1.7, code overflow-x auto.
+Space: 4/8/12/16/20/24/32/40/48/64/80/96/112/128px. Container 1440px;
+gutters 20/32/48px. Radius 8px actions, 20px header/screens; min target
+52px actions, 44px nav. Transition 180ms color/opacity/transform only.
+Focus 3px with 4px offset. Header z10, skip link z20.
+
+### Responsive and primitive states
+
+375px one column and wrapping visible nav; 768px two-column install/privacy;
+1280px 4:8 feature chapters and wide workspace. Sticky header, anchor offset
+144px (including mobile two-row navigation), no bottom dock. Reduced-motion disables transitions/smooth scroll.
+
+Reusable primitives: ProductHeader (original VELNOC logo linked to velnoc.com,
+product home link, visible nav); ActionLink (solid/text, hover/pressed/focus);
+SectionIntro (number/title/copy); ProductFigure (actual screenshot, intrinsic
+size, alt/caption); StepList (always visible exact app labels); InstallPanel
+(prerequisites, complete selectable commands, documentation links);
+ContactBand (paid services clearly distinct from free Community).
+
+### Content and evidence
+
+Use the existing seven-view synthetic adult samples, explicitly requested by
+the owner on September 15, and actual Community screenshots. No new generated
+portrait is used. Document provenance in docs/ASSETS.md. No patient images,
+private measurement panels, patient names or operations data. A single frontal
+sample does not represent a seven-angle dataset; comparisons using the same
+image are interaction demonstrations, not treatment results. English docs
+must disclose Korean UI. No claims of universal recognition, clinical effect,
+surgical prediction or quantitative measurement.
+
+Verify primitive states and page at375/768/1280, keyboard/anchors/images,
+installation and app links, tests/typecheck/build/release guard. Main VELNOC,
+existing beta and Vercel access protection remain untouched. The earlier
+repository-null and pending-asset statements below are historical only.
 
 ## Foundation
 

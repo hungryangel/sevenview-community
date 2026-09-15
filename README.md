@@ -1,46 +1,124 @@
 # SevenView Community
 
-SevenView Community는 일곱 방향 임상 사진을 브라우저에서 분류·정렬·크롭·검토하고, 치료 전후 사진을 시각적으로 비교하는 무료 로컬 우선 웹앱입니다. 가입이나 초대 코드 없이 `/app`에서 바로 사용할 수 있습니다.
+**Organize clinical photos. Align views. Explain comparisons.**
 
-## 기능
+A free, local-first photo workspace by [VELNOC](https://velnoc.com/).
+Arrange facial photographs into a seven-view set, review AI-assisted crops and
+alignment, and export visual comparisons—all inside your browser.
 
-- 촬영 세트 분류, 빠진/추가 사진 안내, 수동 뷰 지정
-- 크롭·위치·확대·회전 검토, 저장 상태와 다음 세트 흐름
-- 나란히·슬라이더·전후 전환, 수동 대응점·확대경·눈 가림
-- PNG, PDF, PPTX, 독립 HTML 저장
-- 이 탭의 처리 세트·사진·저장 횟수만 로컬 저장소에 집계하며 식별자는 저장하지 않음
+[한국어 안내](README.ko.md) · [Installation](docs/INSTALLATION.md) ·
+[User guide](docs/USER_GUIDE.md) · [Paid customization](http://pf.kakao.com/_JDbbX/chat)
 
-정량 변화 측정이나 임상 결과 판정 기능은 포함하지 않습니다.
+![SevenView Community workspace with an existing synthetic seven-view sample](public/examples/workspace.png)
 
-## 로컬 실행
+*Actual Community interface, shown in Korean. All example portraits are synthetic
+adults, not patients. See [asset provenance](docs/ASSETS.md).*
 
-Node.js 24와 pnpm 11이 필요합니다.
+## What you can do
+
+| Workflow | Included |
+| --- | --- |
+| Organize | AI-assisted view assignment, missing/additional photo review, manual reassignment |
+| Review | Crop, position, scale and rotation adjustments; review and export status |
+| Compare | Side-by-side, draggable slider, before/after toggle, paired manual reference points and magnifier |
+| Prepare for sharing | Eye masking and local downloads; masking is not guaranteed anonymization |
+| Export sets | Contact-sheet PNG, PDF, PPTX, individual-photo ZIP |
+| Export comparisons | Comparison PNG and self-contained interactive HTML |
+
+You do **not** need exactly seven input photos. Missing views remain unfilled;
+review assignments before exporting. Recognition may fail for profiles,
+occluded eyes, tight close-ups or non-facial images. Manual review is part of
+the workflow, not an optional accuracy guarantee.
+
+Community does **not** include quantitative area/length/change measurements,
+clinical outcome assessment or surgical simulation. The interface currently
+uses Korean; the English guide maps the main controls.
+
+## Photo and comparison examples
+
+<p>
+  <img src="public/examples/01-front.png" width="160" alt="Synthetic adult, front view" />
+  <img src="public/examples/02-right-oblique.png" width="160" alt="Same synthetic sample, oblique view" />
+  <img src="public/examples/04-right-profile.png" width="160" alt="Same synthetic sample, profile view" />
+</p>
+
+[All seven example photos](public/examples) are included so you can try the app
+without patient data. Use the seven `01-` through `07-` files, not the workspace
+screenshots, as inputs.
+
+![Actual slider comparison interface using the same synthetic photo on both sides](public/examples/comparison.png)
+
+*The same image is used on both sides to demonstrate the slider. This is not a
+treatment result, improvement claim or prediction.*
+
+## Quick start
+
+Requirements: [Git](https://git-scm.com/downloads), [Node.js 24 or later](https://nodejs.org/en/download),
+pnpm **11.19.0**, and a modern desktop browser (Chrome or Edge recommended).
+No API key, account, invitation code or database is required.
 
 ```bash
+git clone https://github.com/hungryangel/sevenview-community.git
+cd sevenview-community
+npm install -g pnpm@11.19.0
 pnpm install --frozen-lockfile
 pnpm dev
 ```
 
-검증:
+Open the URL printed by Vite (normally `http://localhost:5173`). The product
+introduction is at `/`; the workspace is at `/app`.
+
+For platform notes, production builds, static hosting and troubleshooting, read
+the [complete installation guide](docs/INSTALLATION.md). A public no-install
+deployment URL will be added after deployment is verified; this README does not
+link to the separate invitation-only beta.
+
+## First use
+
+1. Open `/app` and select **사진 파일 선택** (choose photos). Load the seven sample PNGs.
+2. Select **AI 자동 정렬** (AI alignment). Wait for local model initialization.
+3. Review each view, especially profile direction, framing and missing photos.
+4. Export the reviewed set and open the downloaded files to confirm the result.
+5. For a comparison, open **치료 전후 비교**, choose one photo per side, and press
+   **두 사진 정렬**. Use **슬라이더** to drag the comparison boundary.
+6. Select **비교 이미지 저장**, choose **설명용 HTML**, then **비교 파일 저장**.
+   Open the downloaded HTML in a browser to use its slider without running the app.
+
+The HTML contains the chosen photos. Treat it as a patient-containing file when
+working with real clinical photos. [Detailed usage and export guide](docs/USER_GUIDE.md).
+
+## Development and verification
 
 ```bash
 pnpm typecheck
-pnpm exec vitest run --maxWorkers=1
+pnpm test
 pnpm build
 pnpm verify:community
+pnpm exec playwright install chromium
 pnpm exec playwright test --workers=1
 ```
 
-## 소스 코드
+The release guard rejects private feature families, secret-shaped content and
+unapproved binary assets. Keep the [public product boundary](docs/PRODUCT_BOUNDARY.md)
+intact when contributing. See [CONTRIBUTING.md](CONTRIBUTING.md).
 
-공개 저장소: [hungryangel/sevenview-community](https://github.com/hungryangel/sevenview-community)
+## Privacy and scope
 
-## 개인정보
+Selected photos and analysis results are not uploaded to an application server.
+Models, WASM and fonts are served from the same origin and run locally. The host
+can retain ordinary page/asset request logs. Local aggregate usage counts are
+not a cloud patient record. Exported files contain photos; consent, retention and
+sharing decisions remain with the operator. See [Privacy](docs/PRIVACY.md) and
+[Model limitations](docs/MODEL_CARD.md).
 
-선택한 사진과 분석 결과는 앱 서버로 전송되지 않습니다. 모델과 WASM은 같은 출처에서 내려받아 브라우저 안에서 실행됩니다. 호스팅 사업자는 일반적인 GET 접속 기록을 보유할 수 있습니다. 내려받은 결과에는 사진이 포함되므로 환자 동의와 기관 보관 정책에 따라 관리하세요. 자세한 내용은 [개인정보 안내](docs/PRIVACY.md)를 확인하세요.
+## License and hospital customization
 
-## 라이선스와 상표
+Source code: [AGPL-3.0-only](LICENSE). Third-party models, fonts and icons retain
+their [own licenses](THIRD_PARTY_NOTICES.md). Brand names and logos follow the
+[trademark policy](TRADEMARK.md); see the separate [example asset notice](docs/ASSETS.md).
 
-소스 코드는 [GNU Affero General Public License v3.0 only](LICENSE)로 배포됩니다. 모델·글꼴·아이콘 등 제3자 구성요소에는 각각의 라이선스가 적용됩니다. SevenView 이름과 로고 사용 범위는 [상표 정책](TRADEMARK.md)을 확인하세요.
+Community is free to use and self-host. VELNOC offers **paid** help with internal
+deployment, operations, security requirements, integration feasibility, output
+templates and custom features. Scope and fees are agreed separately.
 
-기관별 운영·보안·연동·템플릿·추가 개발은 [커스터마이징 문의](http://pf.kakao.com/_JDbbX/chat)로 상담할 수 있습니다.
+[Discuss paid customization](http://pf.kakao.com/_JDbbX/chat) · [About VELNOC](https://velnoc.com/)

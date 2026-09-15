@@ -1,0 +1,223 @@
+@font-face {
+  font-family: "Pretendard Variable";
+  src: url("/fonts/PretendardVariable.woff2") format("woff2");
+  font-weight: 45 920;
+  font-style: normal;
+  font-display: swap;
+}
+
+.sv-site {
+  --b-paper: #fff;
+  --b-ink: #262c2e;
+  --b-muted: #5d6d73;
+  --b-line: #e7edee;
+  --b-sage: #f1f4f4;
+  --b-mint: #def2f7;
+  --b-sand: #faf8ed;
+  --b-deep: #01202c;
+  --b-action-hover: #183e4c;
+  --b-focus: #006886;
+  --b-4: 4px;
+  --b-8: 8px;
+  --b-12: 12px;
+  --b-14: 14px;
+  --b-16: 16px;
+  --b-20: 20px;
+  --b-24: 24px;
+  --b-32: 32px;
+  --b-40: 40px;
+  --b-44: 44px;
+  --b-48: 48px;
+  --b-52: 52px;
+  --b-56: 56px;
+  --b-64: 64px;
+  --b-80: 80px;
+  --b-96: 96px;
+  --b-112: 112px;
+  --b-128: 128px;
+  --b-anchor: 144px;
+  --b-max: 1440px;
+  --b-pad: var(--b-20);
+  --b-space: var(--b-80);
+  --b-body: var(--b-16);
+  --b-title: clamp(var(--b-32), 4vw, var(--b-56));
+  --b-hero: clamp(var(--b-40), 7vw, var(--b-96));
+  --b-fast: 180ms;
+  color: var(--b-ink);
+  background: var(--b-paper);
+  font:
+    400 var(--b-body) / 1.7 "Pretendard Variable",
+    "Apple SD Gothic Neo",
+    sans-serif;
+  min-height: 100dvh;
+}
+.sv-site :is(h1, h2, h3, p, figure) {
+  margin: 0;
+}
+.sv-site :is(h1, h2, h3, p, a, li) {
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+.sv-site p {
+  text-wrap: pretty;
+}
+.sv-site h1 {
+  font-size: var(--b-hero);
+  line-height: 1.13;
+  font-weight: 450;
+  letter-spacing: -0.055em;
+}
+.sv-site h2 {
+  font-size: var(--b-title);
+  line-height: 1.2;
+  font-weight: 450;
+  letter-spacing: -0.045em;
+  text-wrap: balance;
+}
+.sv-site h3 {
+  font-size: var(--b-24);
+  line-height: 1.4;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+}
+.sv-site strong {
+  font-weight: 650;
+}
+.sv-site a {
+  color: inherit;
+}
+.sv-site img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+.sv-site :focus-visible {
+  outline: 3px solid var(--b-focus);
+  outline-offset: var(--b-4);
+}
+.sv-site :is(section, main) {
+  scroll-margin-top: var(--b-anchor);
+}
+.sv-container {
+  width: calc(100% - var(--b-pad) * 2);
+  max-width: var(--b-max);
+  margin-inline: auto;
+}
+.sv-section {
+  padding-block: var(--b-space);
+}
+.sv-eyebrow {
+  font-size: var(--b-12);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+}
+.sv-site .sv-caption,
+.sv-note,
+.sv-figure figcaption {
+  font-size: var(--b-14);
+  color: var(--b-muted);
+}
+.sv-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--b-16);
+  margin-top: var(--b-32);
+}
+.sv-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--b-20);
+  min-height: var(--b-52);
+  padding: var(--b-12) var(--b-20);
+  border-radius: var(--b-8);
+  text-decoration: none;
+  font-weight: 600;
+  transition:
+    background var(--b-fast),
+    transform var(--b-fast);
+}
+.sv-site .sv-action--solid {
+  background: var(--b-deep);
+  color: var(--b-paper);
+}
+.sv-action--solid:hover {
+  background: var(--b-action-hover);
+}
+.sv-action--text {
+  padding-inline: 0;
+  text-decoration: underline;
+  text-underline-offset: var(--b-4);
+}
+.sv-action svg {
+  transition: transform var(--b-fast);
+  flex-shrink: 0;
+}
+.sv-action:hover svg {
+  transform: translateX(var(--b-4));
+}
+.sv-action:active {
+  transform: translateY(1px);
+}
+.sv-text-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--b-44);
+  text-underline-offset: var(--b-4);
+  font-weight: 600;
+}
+.sv-intro {
+  max-width: 48rem;
+}
+.sv-intro h2 {
+  margin-top: var(--b-20);
+}
+.sv-intro > p:last-child:not(:first-child) {
+  margin-top: var(--b-24);
+  color: var(--b-muted);
+}
+.sv-figure img {
+  width: 100%;
+  border-radius: var(--b-20);
+}
+.sv-figure figcaption {
+  margin-top: var(--b-12);
+}
+.sv-skip {
+  position: fixed;
+  top: var(--b-8);
+  left: var(--b-20);
+  z-index: 20;
+  padding: var(--b-12);
+  background: var(--b-paper);
+  transform: translateY(-200%);
+}
+.sv-skip:focus {
+  transform: none;
+}
+@media (min-width: 768px) {
+  .sv-site {
+    --b-pad: var(--b-32);
+    --b-body: 18px;
+  }
+}
+@media (min-width: 980px) {
+  .sv-site {
+    --b-pad: var(--b-48);
+    --b-space: var(--b-128);
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  html:has(.sv-site) {
+    scroll-behavior: smooth;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sv-site *,
+  .sv-site *::before,
+  .sv-site *::after {
+    transition: none;
+    animation: none;
+    scroll-behavior: auto;
+  }
+}

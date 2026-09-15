@@ -1,15 +1,262 @@
-type CommunityLandingProps = { readonly repositoryUrl: string | null }
+import { InstallationGuide } from "./installation-guide"
+import { ActionLink, ProductFigure, SectionIntro } from "./landing-primitives"
+import "./brand.css"
+import "./landing.css"
 
+type CommunityLandingProps = { readonly repositoryUrl: string | null }
 const CONTACT_URL = "http://pf.kakao.com/_JDbbX/chat"
+const steps = [
+  [
+    "사진을 선택하세요",
+    "앱의 ‘사진 파일 선택’에서 같은 촬영 세트의 사진을 불러온 뒤 ‘AI 자동 정렬’을 누르세요. 7장을 모두 채울 필요는 없습니다. 빠진 구도는 직접 확인하세요.",
+  ],
+  [
+    "자동 제안을 검토하세요",
+    "정면·좌우 45도·좌우 측면·턱 밑·정수리의 분류와 크롭을 살펴보세요. 사진을 선택하면 위치·배율·수평을 조정할 수 있습니다. 인식이 어려운 사진은 수동으로 맞추세요.",
+  ],
+  [
+    "필요하면 전후를 비교하세요",
+    "‘치료 전후 비교’에서 전·후 사진을 한 장씩 선택하고 ‘두 사진 정렬’을 누르세요. 같은 부위가 맞는지 확인한 뒤 나란히·슬라이더·전후 전환으로 비교하세요.",
+  ],
+  [
+    "결과물을 저장하세요",
+    "7뷰 결과는 PNG·PDF·PPTX와 개별 사진 ZIP으로 저장할 수 있습니다. 전후 비교의 ‘비교 이미지 저장’에서는 PNG 또는 설명용 HTML을 선택하세요. 다운로드 파일을 확인한 뒤 다음 세트를 시작하세요.",
+  ],
+] as const
 
 export function CommunityLanding({ repositoryUrl }: CommunityLandingProps) {
-  return <div className="community-landing">
-    <header className="community-nav"><a className="community-brand" href="/" aria-label="SevenView Community 홈">SevenView <span>Community</span></a><nav aria-label="주요 메뉴"><a href="#workflow">사용 방법</a>{repositoryUrl === null ? null : <a href={repositoryUrl}>소스 코드</a>}<a className="community-nav-cta" href="/app">무료 앱</a></nav></header>
-    <main>
-      <section className="community-hero"><p className="community-eyebrow">LOCAL-FIRST CLINICAL PHOTO WORKSPACE</p><h1>일곱 장의 임상 사진을 한결같은 기록으로.</h1><p className="community-lead">촬영 세트를 분류하고, 구도와 수평을 맞추고, 치료 전후를 시각적으로 비교하세요. 사진 처리는 브라우저 안에서 이루어집니다.</p><div className="community-actions"><a className="community-button" href="/app">무료 앱 시작</a><a className="community-button community-button--quiet" href="#workflow">사용 방법 보기</a></div><p className="community-assurance">가입·초대 코드 없음 · 사진 업로드 없음 · AGPL-3.0-only</p></section>
-      <section className="community-section" id="workflow"><p className="community-eyebrow">WORKFLOW</p><h2>촬영부터 저장까지, 한 흐름으로</h2><div className="community-grid"><article><span>01</span><h3>사진 불러오기</h3><p>여러 장을 한 번에 선택하면 촬영 방향에 따라 분류하고 빠진 구도를 알려줍니다.</p></article><article><span>02</span><h3>구도 검토하기</h3><p>크롭, 위치, 확대, 수평을 직접 확인하고 필요하면 수동으로 바로잡습니다.</p></article><article><span>03</span><h3>비교하고 저장하기</h3><p>나란히·슬라이더·전후 전환으로 살펴보고 PNG, PDF, PPTX 또는 독립 HTML로 저장합니다.</p></article></div></section>
-      <section className="community-section community-features"><div><p className="community-eyebrow">PRIVATE BY DESIGN</p><h2>사진은 작업 중에도<br />기기 밖으로 나가지 않습니다.</h2></div><div className="community-copy"><p>얼굴과 자세 분석 모델은 앱과 함께 내려받아 브라우저에서 실행됩니다. 웹 호스팅 사업자는 일반적인 페이지 접속 기록을 보유할 수 있지만, 선택한 사진을 서버로 전송하는 기능은 없습니다.</p><p>저장한 결과 파일에는 선택한 사진이 포함됩니다. 환자 동의와 기관의 보관 정책에 따라 안전하게 관리해 주세요.</p></div></section>
-      <section className="community-contact"><p className="community-eyebrow">FOR YOUR CLINIC</p><h2>기관의 실제 업무에 맞춘 도구가 필요하신가요?</h2><p>운영 환경, 보안 정책, 시스템 연동, 출력 템플릿과 추가 기능을 함께 설계합니다.</p><a className="community-button" href={CONTACT_URL}>커스터마이징 문의</a></section>
-    </main><footer className="community-footer"><span>SevenView Community</span><span>사진 표준화와 시각적 비교를 위한 무료 웹 도구</span></footer>
-  </div>
+  return (
+    <div className="sv-site">
+      <a className="sv-skip" href="#main">
+        본문으로 건너뛰기
+      </a>
+      <header className="sv-header">
+        <div className="sv-brand">
+          <a href="https://velnoc.com/" aria-label="VELNOC 홈페이지">
+            <img src="/brand/velnoc-wordmark.png" width="600" height="208" alt="" />
+          </a>
+          <a href="/" className="sv-product-name">
+            SevenView <span>Community</span>
+          </a>
+        </div>
+        <nav aria-label="주요 메뉴">
+          <a href="#features">기능</a>
+          <a href="#workflow">사용 방법</a>
+          <a href="#install">설치 안내</a>
+          <a href="/app" className="sv-nav-app">
+            앱 열기
+          </a>
+        </nav>
+      </header>
+      <main id="main">
+        <section className="sv-hero">
+          <div className="sv-container">
+            <p className="sv-eyebrow">VELNOC / SEVENVIEW COMMUNITY</p>
+            <h1>
+              사진을 정리하는 시간,
+              <br />
+              <strong>환자를 이해하는 시간으로.</strong>
+            </h1>
+            <div className="sv-hero-bottom">
+              <div>
+                <p className="sv-lead">
+                  촬영 사진의 구도를 맞추고, 전후를 비교하고, 설명에 쓸 자료로 저장하세요. 코딩 없이
+                  사용하는 VELNOC의 오픈소스 사진 도구입니다.
+                </p>
+                <div className="sv-actions">
+                  <ActionLink href="/app">무료 앱 시작</ActionLink>
+                  <ActionLink href="#workflow" variant="text">
+                    사용 방법 보기
+                  </ActionLink>
+                </div>
+              </div>
+              <p className="sv-note">
+                가입·초대 코드 없이
+                <br />
+                사진 처리는 내 브라우저에서
+                <br />
+                소스 코드는 AGPL-3.0-only
+              </p>
+            </div>
+            <ProductFigure
+              src="/examples/workspace.png"
+              width={1440}
+              height={1000}
+              alt="기존 합성 예시 인물의 일곱 방향 사진을 정렬한 SevenView Community 실제 작업 화면"
+              caption="7뷰 실제 작업 화면 · 기존 합성 예시 인물 사용"
+              eager
+            />
+          </div>
+        </section>
+        <section className="sv-section sv-container" id="features">
+          <SectionIntro number="01 / FEATURES" title="한 번 정리하고, 여러 방식으로 설명하세요." />
+          <div className="sv-chapter">
+            <div>
+              <h3>
+                흩어진 촬영 사진을
+                <br />한 세트로.
+              </h3>
+              <p>
+                촬영 방향을 자동으로 제안하고, 빠진 사진과 검토가 필요한 사진을 한곳에서 확인합니다.
+                제안이 맞지 않으면 직접 구도와 수평을 수정하세요.
+              </p>
+              <p className="sv-caption">
+                7뷰 기반의 얼굴 사진 도구입니다. 눈 주변 확대 사진·구강 사진 등은 자동 인식이 어려울
+                수 있습니다.
+              </p>
+            </div>
+            <div className="sv-photo-strip">
+              <img
+                src="/examples/01-front.png"
+                width="384"
+                height="480"
+                alt="정면 합성 예시 사진"
+                loading="lazy"
+              />
+              <img
+                src="/examples/02-right-oblique.png"
+                width="384"
+                height="480"
+                alt="45도 합성 예시 사진"
+                loading="lazy"
+              />
+              <img
+                src="/examples/04-right-profile.png"
+                width="384"
+                height="480"
+                alt="측면 합성 예시 사진"
+                loading="lazy"
+              />
+            </div>
+          </div>
+          <div className="sv-chapter">
+            <div>
+              <h3>
+                비교는 직관적으로.
+                <br />
+                설명은 어디에서나.
+              </h3>
+              <p>
+                나란히 보기, 경계를 움직이는 슬라이더, 전후 전환을 지원합니다. 설명용 HTML은 사진을
+                포함한 한 파일로 저장되어 브라우저에서 다시 열 수 있습니다.
+              </p>
+              <p className="sv-caption">
+                아래 화면은 동일한 합성 사진으로 조작을 보여주는 예시입니다. 실제 환자나 시술 결과가
+                아닙니다.
+              </p>
+            </div>
+            <ProductFigure
+              src="/examples/comparison.png"
+              width={1440}
+              height={1000}
+              alt="합성 사진으로 슬라이더 비교 기능을 보여주는 실제 Community 화면"
+              caption="슬라이더 비교 예시 · 동일 사진 사용, 치료 효과를 나타내지 않음"
+            />
+          </div>
+          <div className="sv-output-row">
+            <span>
+              7뷰 결과 <strong>PNG · PDF · PPTX · ZIP</strong>
+            </span>
+            <span>
+              전후 비교 <strong>PNG · 독립 HTML</strong>
+            </span>
+            <span>
+              공개 범위 <strong>정렬 · 크롭 · 시각적 비교</strong>
+            </span>
+          </div>
+        </section>
+        <section className="sv-band" id="workflow">
+          <div className="sv-container sv-two-column">
+            <SectionIntro
+              number="02 / HOW TO USE"
+              title="처음이라면, 이 순서로 해보세요."
+              description="예시 사진으로 먼저 익힌 뒤, 기관의 동의·보관 정책에 맞는 사진을 사용하세요."
+            />
+            <div>
+              <ol className="sv-steps">
+                {steps.map(([title, body], index) => (
+                  <li key={title}>
+                    <span className="sv-step-number">0{index + 1}</span>
+                    <div>
+                      <h3>{title}</h3>
+                      <p>{body}</p>
+                    </div>
+                  </li>
+                ))}
+              </ol>
+              <a className="sv-text-link" href="/examples/01-front.png" download>
+                합성 예시 사진 다운로드
+              </a>
+              {repositoryUrl === null ? null : (
+                <p>
+                  <a className="sv-text-link" href={`${repositoryUrl}/tree/main/public/examples`}>
+                    7방향 예시 사진 전체 보기
+                  </a>
+                </p>
+              )}
+            </div>
+          </div>
+        </section>
+        <InstallationGuide repositoryUrl={repositoryUrl} />
+        <section className="sv-band sv-band--sand" id="privacy">
+          <div className="sv-container sv-two-column">
+            <SectionIntro number="04 / LOCAL FIRST" title="사진은 기기 안에서 처리합니다." />
+            <div className="sv-copy">
+              <p>
+                선택한 사진을 서버에 업로드하는 기능은 없습니다. 분석 모델과 서체도 앱과 같은
+                서버에서 받아 브라우저 안에서 실행합니다. 호스팅 사업자는 페이지 접속 기록을 보유할
+                수 있습니다.
+              </p>
+              <p>
+                다운로드한 파일에는 사진이 포함됩니다. 눈 모자이크를 적용하더라도 완전한 익명화를
+                보장하지 않으므로, 공유 전에 결과와 동의 범위를 확인하세요.
+              </p>
+              <p>
+                Community에는 면적·길이·변화율 측정이 포함되지 않습니다. 자동 정렬은 보조 기능이며,
+                진단이나 시술 결과 예측 도구가 아닙니다.
+              </p>
+              {repositoryUrl === null ? null : (
+                <a className="sv-text-link" href={`${repositoryUrl}/blob/main/docs/PRIVACY.md`}>
+                  개인정보 처리 구조 자세히 보기
+                </a>
+              )}
+            </div>
+          </div>
+        </section>
+        <section className="sv-section sv-container sv-two-column" id="custom">
+          <SectionIntro number="05 / WORK WITH VELNOC" title="우리 병원의 흐름에 맞춰야 한다면." />
+          <div className="sv-copy">
+            <p>
+              Community는 무료로 사용하고 직접 설치할 수 있습니다. 별도의 운영 지원과 병원 맞춤
+              개발은 유료로 상담합니다.
+            </p>
+            <ul className="sv-service-list">
+              <li>병원 내부 설치·운영 및 보안 환경 검토</li>
+              <li>기존 시스템 연동 가능성 검토</li>
+              <li>촬영 세트·출력 템플릿·추가 기능 개발</li>
+            </ul>
+            <ActionLink href={CONTACT_URL}>유료 커스터마이징 문의</ActionLink>
+            <p className="sv-caption">
+              필요한 업무와 현재 환경을 알려주세요. 범위와 비용은 협의 후 정합니다.
+            </p>
+          </div>
+        </section>
+      </main>
+      <footer className="sv-footer sv-container">
+        <div>
+          <strong>SevenView Community</strong>
+          <p>의료 현장의 반복 작업을 줄이는 VELNOC의 오픈소스 도구.</p>
+        </div>
+        <nav aria-label="하단 메뉴">
+          <a href="https://velnoc.com/">VELNOC</a>
+          {repositoryUrl === null ? null : (
+            <>
+              <a href={repositoryUrl}>GitHub · English</a>
+              <a href={`${repositoryUrl}/blob/main/LICENSE`}>AGPL-3.0-only</a>
+            </>
+          )}
+        </nav>
+      </footer>
+    </div>
+  )
 }

@@ -3,6 +3,8 @@
 사진 정리·크롭·전후 비교를 돕는 [VELNOC](https://velnoc.com/)의 무료 오픈소스 도구입니다.
 사진은 브라우저 안에서 처리하며, 가입이나 초대 코드 없이 사용할 수 있습니다.
 
+[무료 웹앱 시작](https://sevenview-community.vercel.app/app) ·
+[SevenView 홈페이지](https://sevenview-community.vercel.app/) ·
 [English](README.md) · [상세 설치 안내](docs/INSTALLATION.md) · [사용 방법](docs/USER_GUIDE.md)
 
 ![기존 합성 인물 7방향 사진을 사용한 Community 실제 작업 화면](public/examples/workspace.png)
@@ -50,8 +52,9 @@ pnpm dev
 ```
 
 터미널에 표시된 주소(기본 `http://localhost:5173`)로 접속합니다.
-`/`는 소개 페이지, `/app`은 작업 화면입니다. 설치 없이 쓰는 공개 웹 주소는
-배포 검증 후 추가됩니다. 기존 초대형 베타와는 별도입니다.
+`/`는 소개 페이지, `/app`은 작업 화면입니다.
+설치 없이 [공개 웹앱](https://sevenview-community.vercel.app/app)을 사용할 수도 있습니다.
+기존 초대형 베타와 별도이며 초대 코드가 필요하지 않습니다.
 
 운영용 빌드·서버 설정·오류 해결은 [설치 안내](docs/INSTALLATION.md)를 참고하세요.
 

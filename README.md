@@ -6,6 +6,8 @@ A free, local-first photo workspace by [VELNOC](https://velnoc.com/).
 Arrange facial photographs into a seven-view set, review AI-assisted crops and
 alignment, and export visual comparisons—all inside your browser.
 
+[Use the free web app](https://sevenview-community.vercel.app/app) ·
+[Product website](https://sevenview-community.vercel.app/) ·
 [한국어 안내](README.ko.md) · [Installation](docs/INSTALLATION.md) ·
 [User guide](docs/USER_GUIDE.md) · [Paid customization](http://pf.kakao.com/_JDbbX/chat)
 
@@ -69,9 +71,9 @@ Open the URL printed by Vite (normally `http://localhost:5173`). The product
 introduction is at `/`; the workspace is at `/app`.
 
 For platform notes, production builds, static hosting and troubleshooting, read
-the [complete installation guide](docs/INSTALLATION.md). A public no-install
-deployment URL will be added after deployment is verified; this README does not
-link to the separate invitation-only beta.
+the [complete installation guide](docs/INSTALLATION.md). Prefer no installation?
+Open the [public Community app](https://sevenview-community.vercel.app/app).
+It is separate from the invitation-only beta and requires no invitation code.
 
 ## First use
 

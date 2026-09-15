@@ -37,8 +37,9 @@ Focus 3px with 4px offset. Header z10, skip link z20.
 
 ### Responsive and primitive states
 
-375px one column and wrapping visible nav; 768px two-column install/privacy;
-1280px 4:8 feature chapters and wide workspace. Sticky header, anchor offset
+375px one column and wrapping visible nav; 768px two-column installation;
+980px two-column workflow/privacy/customization and 4:8 feature chapters;
+1280px wide workspace. Sticky header, anchor offset
 144px (including mobile two-row navigation), no bottom dock. Reduced-motion disables transitions/smooth scroll.
 
 Reusable primitives: ProductHeader (original VELNOC logo linked to velnoc.com,
